@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { CiLight } from "react-icons/ci";
+import { MdDarkMode } from "react-icons/md";
 
 export default function DarkSignUp() {
+    const [isDark, setIsDark] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -34,8 +36,8 @@ export default function DarkSignUp() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-900 px-4 py-10">
-            <div className="flex flex-col min-h-180 border border-slate-700 sm:flex-row max-w-5xl w-full  rounded-2xl overflow-hidden shadow-xl">
+        <div className={`${!isDark ? "min-h-screen flex items-center justify-center bg-slate-200 px-4 py-10" : "min-h-screen flex items-center justify-center bg-slate-900 px-4 py-10"}`}>
+            <div className={`${isDark ? "flex flex-col min-h-180 border border-slate-700 sm:flex-row max-w-5xl w-full  rounded-2xl overflow-hidden shadow-xl" : "flex flex-col min-h-180 border border-slate-300 sm:flex-row max-w-5xl w-full  rounded-2xl overflow-hidden shadow-xl"}`}>
                 {/* Left Panel */}
                 <div className="w-full md:w-1/2 relative">
                     <img
@@ -53,9 +55,9 @@ export default function DarkSignUp() {
                 <form
                     noValidate
                     onSubmit={handleSubmit}
-                    className="w-full md:w-1/2 bg-slate-900 p-8 text-slate-200 font-semibold"
+                    className={`${!isDark ? "w-full md:w-1/2 bg-slate-200 p-8 text-slate-200 font-semibold" : "w-full md:w-1/2 bg-slate-900 p-8 text-slate-200 font-semibold"}`}
                 >
-                    <h2 className="text-2xl font-bold mb-2">Login to your Account</h2>
+                    <h2 className={`${isDark ? "text-2xl font-bold mb-2" : "text-2xl text-slate-800 font-bold mb-2"}`}>Login to your Account</h2>
                     <p className="text-sm text-gray-400 mb-6">
                         Don't have an account? <Link to={"/signUp"} className="underline text-blue-600">Sign Up</Link>
                     </p>
@@ -66,7 +68,7 @@ export default function DarkSignUp() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
-                        className="w-full border border-slate-700 bg-slate-900 px-4 py-2 rounded outline-none mb-4"
+                        className={`${!isDark ? "w-full border border-slate-400 bg-slate-200 px-4 py-2 rounded outline-none mb-4 text-slate-900" : "w-full border border-slate-700 bg-slate-900 px-4 py-2 rounded outline-none mb-4"}`}
                     />
 
                     <div className="relative mb-4">
@@ -76,12 +78,12 @@ export default function DarkSignUp() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Enter your password"
-                            className="w-full border border-slate-700 px-4 py-2 rounded outline-none"
+                            className={`${!isDark ? "w-full border border-slate-400 bg-slate-200 px-4 py-2 rounded outline-none mb-4 text-slate-900" : "w-full border border-slate-700 bg-slate-900 px-4 py-2 rounded outline-none mb-4"}`}
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-3 text-sm text-slate-300"
+                            className={`${isDark ? "absolute right-3 top-3 text-sm text-slate-300" : "absolute right-3 top-3 text-sm text-slate-800"}`}
                         >
                             {showPassword ? "Hide" : "Show"}
                         </button>
@@ -95,7 +97,7 @@ export default function DarkSignUp() {
                             onChange={() => setAgree(prev => !prev)}
                             className="mr-2 border border-green-700"
                         />
-                        <span className="text-sm">
+                        <span className={`${!isDark ? "text-sm text-slate-800" : "text-sm text-slate-200"}`}>
                             I agree to the <a href="#" className="underline">Terms & Conditions</a>
                         </span>
                     </div>
@@ -110,14 +112,18 @@ export default function DarkSignUp() {
                     <p className="text-center text-sm text-gray-400 mb-2">Or register with</p>
 
                     <div className="flex gap-4 justify-center">
-                        <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded shadow">
+                        <button className="flex items-center gap-2 bg-slate-200 font-semibold text-black px-4 py-2 rounded shadow">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" className="h-4 w-4" /> Google
                         </button>
-                        <button className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded shadow">
+                        <button className="flex items-center gap-2 bg-slate-200 text-black font-semibold px-4 py-2 rounded shadow">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" className="h-4 w-4" /> Apple
                         </button>
                     </div>
                 </form>
+                <button onClick={() => setIsDark((prev) => !prev)} className={`${!isDark ? "flex justify-center cursor-pointer items-center bg-slate-200 gap-1.5  text-black font-semibold px-4 py-2 shadow" : "flex justify-center cursor-pointer items-center bg-slate-800 gap-1.5  text-white font-semibold px-4 py-2 shadow"}`}>
+                    {!isDark ? <MdDarkMode /> : <CiLight />}
+                    {isDark ? "Light" : "Dark"}
+                </button>
             </div>
         </div>
     );

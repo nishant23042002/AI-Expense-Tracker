@@ -60,7 +60,7 @@ export default function DarkSignUp() {
                 {/* Right Panel */}
                 <form
                     onSubmit={handleSubmit}
-                    className={`${isDark ? "w-full md:w-1/2 p-8 text-slate-200" : "w-full md:w-1/2 p-8 bg-white text-slate-500"}`}
+                    className={`${isDark ? "w-full md:w-1/2 p-8 text-slate-200" : "w-full md:w-1/2 p-8 bg-slate-200 text-slate-500"}`}
                 >
                     <h2 className={`${isDark ? "text-2xl font-bold mb-2" : "text-2xl mb-2 text-slate-800 font-semibold"}`}>Create an account</h2>
                     <p className={`${isDark ? "text-sm text-slate-200 mb-6" : "text-sm text-slate-800 mb-6"}`}>
