@@ -23,7 +23,7 @@ const ProfilePicSelector = ({ image, setImage }) => {
     }
     return (
         <div>
-            <input type="file" accept="image/*" ref={inputRef} onChange={handleImage} className="hidden" />
+            <input name="profilePic" id="profilePic" type="file" accept="image/*" ref={inputRef} onChange={handleImage} className="hidden" />
             {
                 !image ? (
                     <div className="w-20 h-20 flex items-center justify-center bg-[#d2c8ff] rounded-full relative">

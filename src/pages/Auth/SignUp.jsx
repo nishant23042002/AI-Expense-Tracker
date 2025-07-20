@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProfilePicSelector from "./ProfileSelector";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 
 
-export default function DarkSignUp() {
+export default function SignUp() {
     const [isDark, setIsDark] = useState(false);
     const [userName, setUserName] = useState("")
     const [email, setEmail] = useState("")
@@ -14,36 +14,66 @@ export default function DarkSignUp() {
     const [profilePic, setProfilePic] = useState()
     const [message, setMessage] = useState("")
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let formData = { profilePic, userName, email, password, isAgree }
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!userName || userName.length < 6) {
-            setMessage("Please enter your name")
-        }
 
+        if (!userName || userName.length < 3) {
+            return setMessage("Please enter your full name.");
+        }
         if (!profilePic) {
-            setMessage("Please select profile picture")
+            return setMessage("Please select a profile picture.");
         }
-
         if (!email || !emailRegex.test(email)) {
-            setMessage("Please enter a valid email address.");
+            return setMessage("Please enter a valid email address.");
         }
-
         if (!password || password.length < 6) {
-            setMessage("Password must be at least 6 characters.");
+            return setMessage("Password must be at least 6 characters.");
+        }
+        if (!isAgree) {
+            return setMessage("You must agree to the terms.");
         }
 
-        console.log("Creating account with:", formData);
+        // ✅ Now safe to send data
+        const formData = new FormData();
+        formData.append("profilePic", profilePic);
+        formData.append("userName", userName);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("isAgree", isAgree);
 
+        try {
+            const res = await fetch("http://localhost:4001/api/v1/signup", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await res.json();
+            console.log(data);
+
+            if (!res.ok) {
+                setMessage(data.message || "Signup failed.");
+            } else {
+                setMessage("Account created successfully!");
+                setTimeout(() => {
+                    navigate("/login")
+                },2000)
+                // Optionally redirect or reset form
+            }
+        } catch (err) {
+            console.error("Signup error:", err);
+            setMessage("Something went wrong. Please try again.");
+        }
     };
+
 
     return (
         <div className={`${isDark ? "min-h-screen flex items-center justify-center bg-slate-900 px-4 py-10" : "min-h-screen flex items-center justify-center bg-slate-200 px-4 py-10"}`}>
-            <div className={`${isDark ? "flex flex-col min-h-180 sm:flex-row max-w-5xl w-full border border-slate-700 rounded-2xl overflow-hidden shadow-xl" : "flex flex-col min-h-180 sm:flex-row max-w-5xl w-full border border-slate-200 rounded-2xl overflow-hidden shadow-xl"}`}>
+            <div className={`${isDark ? "flex flex-col min-h-180 sm:flex-row max-w-6xl w-full border border-slate-700 rounded-2xl overflow-hidden shadow-xl" : "flex flex-col min-h-180 sm:flex-row max-w-6xl w-full border border-gray-300 rounded-2xl overflow-hidden shadow-xl"}`}>
                 {/* Left Panel */}
                 <div className="w-full md:w-1/2 relative">
                     <img
@@ -59,6 +89,7 @@ export default function DarkSignUp() {
 
                 {/* Right Panel */}
                 <form
+                    encType="multipart/form-data"
                     onSubmit={handleSubmit}
                     className={`${isDark ? "w-full md:w-1/2 p-8 text-slate-200" : "w-full md:w-1/2 p-8 bg-slate-200 text-slate-500"}`}
                 >
@@ -72,14 +103,14 @@ export default function DarkSignUp() {
 
                         <input
                             type="text"
-                            name="Your Name"
+                            name="userName"
                             value={userName}
                             onChange={(e) => {
                                 setUserName(e.target.value)
                                 setMessage("")
                             }}
                             placeholder="First name"
-                            className="border w-full border-slate-700 px-4 py-2 rounded outline-none"
+                            className={`${!isDark ? "w-full border border-slate-400 bg-slate-200 px-4 py-2 rounded outline-none mb-4 text-slate-900" : "w-full border border-slate-700 bg-slate-900 px-4 py-2 rounded outline-none mb-4"}`}
                         />
                     </div>
 
@@ -92,7 +123,7 @@ export default function DarkSignUp() {
                             setMessage("");
                         }}
                         placeholder="Email"
-                        className="w-full border border-slate-700 px-4 py-2 rounded outline-none mb-4"
+                        className={`${!isDark ? "w-full border border-slate-400 bg-slate-200 px-4 py-2 rounded outline-none mb-4 text-slate-900" : "w-full border border-slate-700 bg-slate-900 px-4 py-2 rounded outline-none mb-4"}`}
                     />
 
                     <div className="relative mb-4">
@@ -105,7 +136,7 @@ export default function DarkSignUp() {
                                 setMessage("")
                             }}
                             placeholder="Enter your password"
-                            className="w-full border border-slate-700 px-4 py-2 rounded outline-none"
+                            className={`${!isDark ? "w-full border border-slate-400 bg-slate-200 px-4 py-2 rounded outline-none mb-4 text-slate-900" : "w-full border border-slate-700 bg-slate-900 px-4 py-2 rounded outline-none mb-4"}`}
                         />
                         <button
                             type="button"
@@ -124,9 +155,8 @@ export default function DarkSignUp() {
                                 setAgree(e.target.checked);
                                 setMessage("");
                             }}
-                        />
-
-                        <span className={`${isDark ? "text-sm text-slate-200" : "text-sm text-slate-500"}`}>
+                        />                   
+                        <span className={`${isDark ? "text-sm text-slate-200 mx-2" : "text-sm text-slate-500 mx-2"}`}>
                             I agree to the <span className="underline">Terms & Conditions</span>
                         </span>
                     </div>
@@ -137,7 +167,7 @@ export default function DarkSignUp() {
                     >
                         Create account
                     </button>
-                    <h1 className="text-center text-red-600">{message}</h1>
+                    <h1 className={`font-semibold ${message.includes("successfully") ? "text-center text-green-600" : "text-center text-red-600"}`}>{message}</h1>
                     <p className="text-center text-sm text-gray-400 mb-2">Or register with</p>
 
                     <div className="flex gap-4 justify-center">

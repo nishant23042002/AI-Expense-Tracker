@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../redux/userLogin.js";
 
-export default function DarkSignUp() {
+export default function Login() {
     const [isDark, setIsDark] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("")
@@ -11,11 +13,17 @@ export default function DarkSignUp() {
     const [isAgree, setAgree] = useState("")
     const [message, setMessage] = useState("")
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let formData = { email, password, isAgree }
+        const payload = {
+            email,
+            password,
+            isAgree
+        };
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
             setMessage("Please enter a valid email address.");
@@ -31,13 +39,39 @@ export default function DarkSignUp() {
             setMessage("You must agree to the Terms & Conditions.");
             return;
         }
-        console.log("Creating account with:", formData);
-        navigate("/dashboard")
+        try {
+            const res = await fetch("http://localhost:4001/api/v1/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+            console.log(data);
+
+            if (!res.ok) {
+                setMessage(data.message || "Login failed.");
+            } else {
+                dispatch(loginUser({
+                    user: data.user,
+                    token: data.token
+                }))
+                setMessage(data.message);
+                setTimeout(() => {
+                    navigate("/dashboard")
+                }, 2000)
+            }
+        } catch (err) {
+            console.error("Login error:", err);
+            setMessage("Something went wrong. Please try again.");
+        }
     };
 
     return (
         <div className={`${!isDark ? "min-h-screen flex items-center justify-center bg-slate-200 px-4 py-10" : "min-h-screen flex items-center justify-center bg-slate-900 px-4 py-10"}`}>
-            <div className={`${isDark ? "flex flex-col min-h-180 border border-slate-700 sm:flex-row max-w-5xl w-full  rounded-2xl overflow-hidden shadow-xl" : "flex flex-col min-h-180 border border-slate-300 sm:flex-row max-w-5xl w-full  rounded-2xl overflow-hidden shadow-xl"}`}>
+            <div className={`${isDark ? "flex flex-col min-h-180 border border-slate-700 sm:flex-row max-w-6xl w-full  rounded-2xl overflow-hidden shadow-xl" : "flex flex-col min-h-180 border border-slate-300 sm:flex-row max-w-6xl w-full  rounded-2xl overflow-hidden shadow-xl"}`}>
                 {/* Left Panel */}
                 <div className="w-full md:w-1/2 relative">
                     <img
@@ -61,7 +95,7 @@ export default function DarkSignUp() {
                     <p className="text-sm text-gray-400 mb-6">
                         Don't have an account? <Link to={"/signUp"} className="underline text-blue-600">Sign Up</Link>
                     </p>
-                    <h1 className="text-center mb-4 text-red-600">{message}</h1>
+                    <h1 className={`${message.includes("Successfully") ? "text-center mb-4 text-green-600" : "text-center mb-4 text-red-600"}`}>{message}</h1>
                     <input
                         type="email"
                         name="email"
