@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import ProfilePicSelector from "./ProfileSelector";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
-
+import axiosInstance from "../../utils/axiosInstance.js";
+import { API_PATHS } from "../../utils/apiPath.js";
 
 export default function SignUp() {
     const [isDark, setIsDark] = useState(false);
@@ -13,6 +14,7 @@ export default function SignUp() {
     const [isAgree, setAgree] = useState(false)
     const [profilePic, setProfilePic] = useState()
     const [message, setMessage] = useState("")
+    const [isSuccess, setIsSuccess] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -47,26 +49,25 @@ export default function SignUp() {
         formData.append("isAgree", isAgree);
 
         try {
-            const res = await fetch("http://localhost:4001/api/v1/signup", {
-                method: "POST",
-                body: formData,
+            const response = await axiosInstance.post(API_PATHS.AUTH.SIGNUP, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             });
 
-            const data = await res.json();
+            const data = response.data;
             console.log(data);
 
-            if (!res.ok) {
-                setMessage(data.message || "Signup failed.");
-            } else {
-                setMessage("Account created successfully!");
-                setTimeout(() => {
-                    navigate("/login")
-                },2000)
-                // Optionally redirect or reset form
-            }
+            setIsSuccess(true);
+            setMessage(data.message || "Account created successfully!");
+
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
         } catch (err) {
-            console.error("Signup error:", err);
-            setMessage("Something went wrong. Please try again.");
+            console.error("Sign Up error:", err);
+            const errorMsg = err.response?.data?.message || "Something went wrong. Please try again.";
+            setMessage(errorMsg);
         }
     };
 
@@ -155,7 +156,7 @@ export default function SignUp() {
                                 setAgree(e.target.checked);
                                 setMessage("");
                             }}
-                        />                   
+                        />
                         <span className={`${isDark ? "text-sm text-slate-200 mx-2" : "text-sm text-slate-500 mx-2"}`}>
                             I agree to the <span className="underline">Terms & Conditions</span>
                         </span>
@@ -167,7 +168,7 @@ export default function SignUp() {
                     >
                         Create account
                     </button>
-                    <h1 className={`font-semibold ${message.includes("successfully") ? "text-center text-green-600" : "text-center text-red-600"}`}>{message}</h1>
+                    <h1 className={`font-semibold text-center ${isSuccess ? "text-green-600" : "text-red-600"}`}>{message}</h1>
                     <p className="text-center text-sm text-gray-400 mb-2">Or register with</p>
 
                     <div className="flex gap-4 justify-center">

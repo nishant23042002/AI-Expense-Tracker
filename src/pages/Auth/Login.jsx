@@ -4,6 +4,8 @@ import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/userLogin.js";
+import axiosInstance from "../../utils/axiosInstance.js";
+import { API_PATHS } from "../../utils/apiPath.js";
 
 export default function Login() {
     const [isDark, setIsDark] = useState(false);
@@ -40,32 +42,32 @@ export default function Login() {
             return;
         }
         try {
-            const res = await fetch("http://localhost:4001/api/v1/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
+            // const res = await fetch("http://localhost:4001/api/v1/user/login", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify(payload),
+            // });
 
-            const data = await res.json();
-            console.log(data);
+            const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, payload);
+            const data = res.data;
 
-            if (!res.ok) {
-                setMessage(data.message || "Login failed.");
-            } else {
-                dispatch(loginUser({
+            dispatch(
+                loginUser({
                     user: data.user,
-                    token: data.token
-                }))
-                setMessage(data.message);
-                setTimeout(() => {
-                    navigate("/dashboard")
-                }, 2000)
-            }
+                    token: data.token,
+                })
+            );
+
+            setMessage(data.message || "Login successful.");
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 2000);
         } catch (err) {
             console.error("Login error:", err);
-            setMessage("Something went wrong. Please try again.");
+            const errorMsg = err.response?.data?.message || "Something went wrong. Please try again.";
+            setMessage(errorMsg);
         }
     };
 
