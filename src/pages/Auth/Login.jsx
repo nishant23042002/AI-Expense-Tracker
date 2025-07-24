@@ -42,28 +42,23 @@ export default function Login() {
             return;
         }
         try {
-            // const res = await fetch("http://localhost:4001/api/v1/user/login", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json"
-            //     },
-            //     body: JSON.stringify(payload),
-            // });
-
             const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, payload);
             const data = res.data;
-
+            console.log(data);
             dispatch(
                 loginUser({
                     user: data.user,
                     token: data.token,
                 })
             );
+            const token = localStorage.getItem("token")
 
+            if (token) {
+                setTimeout(() => {
+                    navigate("/dashboard");
+                }, 2000);
+            }
             setMessage(data.message || "Login successful.");
-            setTimeout(() => {
-                navigate("/dashboard");
-            }, 2000);
         } catch (err) {
             console.error("Login error:", err);
             const errorMsg = err.response?.data?.message || "Something went wrong. Please try again.";

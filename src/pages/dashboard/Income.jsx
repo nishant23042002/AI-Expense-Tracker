@@ -1,8 +1,9 @@
-function Income(){
-    return(
-        <>
-            <h1>Income</h1>
-        </>
+
+function Income() {
+    return (
+        <div>
+            <div className="bg-green-300 h-[100vh]">Income</div>
+        </div>
     )
 }
 export default Income
