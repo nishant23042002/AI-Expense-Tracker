@@ -26,14 +26,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />, // ✅ Contains <Outlet />
+    element: <DashboardLayout />,
     children: [
       {
-        index: true, // Matches /dashboard
+        index: true,
         element: <Home />,
       },
       {
-        path: "income", // Matches /dashboard/income
+        path: "income",
         element: <Income />,
       },
       {

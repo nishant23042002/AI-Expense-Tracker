@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/userLogin.js";
 import { LuLayoutDashboard, LuHandCoins, LuWalletMinimal, LuLogOut } from "react-icons/lu"
 import { GoGoal } from "react-icons/go";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 
@@ -54,17 +54,17 @@ function SideMenu({ activeMenu, user }) {
                             </MotionDiv>
                         )}
                     </AnimatePresence>
-                    <h5 className="font-medium">{user?.username.toUpperCase()}</h5>
+                    <h5 className="font-medium">{user?.username?.toUpperCase()}</h5>
                 </div>
 
-                <button className={`w-full text-lg font-medium flex gap-4 items-center ${activeMenu == "Dashboard" ? "text-white bg-purple-800" : ""} py-3 hover:bg-purple-800 duration-200 px-6 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard")}><LuLayoutDashboard />Dashboard</button>
-                <button className={`w-full text-lg font-medium flex gap-4 items-center ${activeMenu == "Income" ? "text-white bg-yellow-500" : ""} py-3 hover:bg-yellow-500 duration-200 px-6 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard/income")}><LuWalletMinimal />Income</button>
-                <button className={`w-full text-lg font-medium flex gap-4 items-center ${activeMenu == "Expense" ? "text-white bg-red-500" : ""} py-3 px-6 hover:bg-red-500 duration-200 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard/expense")}><LuHandCoins />Expense</button>
-                <button className={`w-full text-lg font-medium flex gap-4 items-center ${activeMenu == "Set Goal" ? "text-white bg-green-500" : ""} py-3 px-6 hover:bg-green-500 duration-200 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard/setgoal")}><GoGoal />Set Goal</button>
-                <button className={`w-full text-lg font-medium flex gap-4 items-center ${activeMenu == "Logout" ? "text-white bg-slate-800" : ""} py-3 px-6 hover:bg-gray-600 duration-200 rounded-lg mb-3 cursor-pointer`} onClick={handleLogOut}><LuLogOut />Logout <span className="text-sm">{message}</span></button>
+                <button className={`w-full text-xl font-semibold flex gap-4 items-center ${activeMenu == "Dashboard" ? "text-white bg-purple-800" : ""} py-3 hover:bg-purple-800 duration-200 px-6 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard")}><LuLayoutDashboard />Dashboard</button>
+                <button className={`w-full text-xl font-semibold flex gap-4 items-center ${activeMenu == "Income" ? "text-white bg-yellow-500" : ""} py-3 hover:bg-yellow-500 duration-200 px-6 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard/income")}><LuWalletMinimal />Income</button>
+                <button className={`w-full text-xl font-semibold flex gap-4 items-center ${activeMenu == "Expense" ? "text-white bg-red-500" : ""} py-3 px-6 hover:bg-red-500 duration-200 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard/expense")}><LuHandCoins />Expense</button>
+                <button className={`w-full text-xl font-semibold flex gap-4 items-center ${activeMenu == "Set Goal" ? "text-white bg-green-500" : ""} py-3 px-6 hover:bg-green-500 duration-200 rounded-lg mb-3 cursor-pointer`} onClick={() => navigate("/dashboard/setgoal")}><GoGoal />Set Goal</button>
+                <button className={`w-full text-xl font-semibold flex gap-4 items-center ${activeMenu == "Logout" ? "text-white bg-slate-800" : ""} py-3 px-6 hover:bg-gray-600 duration-200 rounded-lg mb-3 cursor-pointer`} onClick={handleLogOut}><LuLogOut />Logout <span className="text-sm font-medium text-red-600">{message}</span></button>
             </div>
         </div >
     )
 }
 
-export default memo(SideMenu);
+export default SideMenu;
