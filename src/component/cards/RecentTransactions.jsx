@@ -4,7 +4,7 @@ import moment from "moment"
 
 export default function RecentTransactions({ transactions, openTransaction }) {
     return (
-        <div className="md:w-130 bg-slate-50 p-6 rounded-2xl border hover:shadow-xl duration-200 border-gray-100 shadow-md">
+        <div className="lg:w-130 w-full sm:h-[500px] bg-slate-50 p-6 rounded-2xl border hover:shadow-xl duration-200 border-gray-100 shadow-md">
             <div className="flex items-center justify-between mb-4">
                 <h5 className="sm:text-xl font-semibold text-slate-500">Recent Transactions</h5>
                 <p className="text-base text-gray-500">{transactions?.length} items</p>

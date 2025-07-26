@@ -43,10 +43,11 @@ export default function Navbar({
         setOpenSideMenu(false);
     }, [location.pathname, setOpenSideMenu]);
     const MotionDiv = motion.div
+    
     return (
         <div className="flex gap-5 bg-slate-200 backdrop-blur-[2px] py-4 px-7 sticky top-0 z-30">
             <button
-                className="hidden max-sm:block text-black"
+                className="hidden max-md:block text-black"
                 onClick={() => setOpenSideMenu(!openSideMenu)}
             >
                 {openSideMenu ? (

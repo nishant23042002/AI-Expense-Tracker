@@ -11,7 +11,7 @@ export default function TransactionCard({ title, icon, date, amount, type, hideD
 
 
             <div className="w-full flex max-[450px]:flex-col max-[450px]:items-end items-center justify-between">
-                <div>
+                <div className="flex flex-col justify-center max-[450px]:items-end items-start">
                     <p className="text-sm text-gray-600 font-medium">{title}</p>
                     <p className="text-xs text-center text-gray-500 my-1">{date}</p>
                 </div>

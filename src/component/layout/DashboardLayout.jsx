@@ -40,12 +40,12 @@ const DashboardLayout = () => {
     const user = useSelector((state) => state.loginState.user);
     // console.log(user);
     const activeMenu = routeToMenu[location.pathname] || "";
-    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 640); // sm = 640px
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
     const [openSideMenu, setOpenSideMenu] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
-            const isNowDesktop = window.innerWidth > 640;
+            const isNowDesktop = window.innerWidth >= 768;
             setIsDesktop(isNowDesktop);
             if (isNowDesktop) {
                 // Ensure mobile menu is closed
