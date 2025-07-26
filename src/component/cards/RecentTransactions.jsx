@@ -13,7 +13,7 @@ export default function RecentTransactions({ transactions, openTransaction }) {
             <div className="flex justify-end">
                 <button
                     onClick={openTransaction}
-                    className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-purple-700 hover:text-purple-800 border border-gray-200 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all"
+                    className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-purple-700 hover:text-purple-800 border border-gray-200 rounded-lg bg-purple-50 hover:bg-gray-100 transition-all"
                 >
                     See more <LuArrowRight size={16} />
                 </button>
