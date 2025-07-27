@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axiosInstance from "../../utils/axiosInstance.js"
 import { API_PATHS } from "../../utils/apiPath.js";
 import HomeInfoCard from "../../component/cards/HomeInfoCard.jsx";
-import { IoMdCard, IoMdTrendingUp } from "react-icons/io"
+import { IoMdCard } from "react-icons/io"
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu"
 import TransactionCard from "../../component/cards/RecentTransactions.jsx";
 import { useNavigate } from "react-router-dom"
@@ -15,16 +15,7 @@ function Home() {
     const [dashboardStats, setDashboardStats] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
 
     const fetchDashboardStats = async () => {
@@ -54,28 +45,16 @@ function Home() {
         value
     }));
 
-    const source = dashboardStats?.last60DaysIncomeTransactions?.transaction || []
-    const groupBySource = {}
 
-    source.forEach(txn => {
-        let src = txn.source || "Others";
-        if (isMobile && src.length > 10) {
-            src = src.slice(0, 10) + "…";
-        }
-        groupBySource[src] = (groupBySource[src] || 0) + txn.amount;
-    });
-
-    const simpleAreaChartData = Object.entries(groupBySource).map(([source, value]) => ({
-        source,
-        value
-    }))
-    console.log(simpleAreaChartData);
-
-
+    const simpleAreaChartData = dashboardStats?.last60DaysIncomeTransactions?.incomeLast60Days || []
 
     useEffect(() => {
         fetchDashboardStats();
     }, []);
+    console.log("Last60daysIncome Transactions", simpleAreaChartData);
+    console.log("Recent transaction: ", dashboardStats?.recentTransaction);
+    console.log("Income transaction: ", dashboardStats?.last60DaysIncomeTransactions?.transaction);
+    console.log("Expense transaction: ", dashboardStats?.last30DaysExpenses?.transaction);
 
     return (
         <div className="my-5 mx-auto px-4">
@@ -104,29 +83,45 @@ function Home() {
                 />
 
             </div>
+            {
+                dashboardStats ? (
+                    <div className="flex flex-wrap max-md:justify-center gap-6 mt-6">
+                        {/* Simple AreaChart */}
+                        <Last60DaysIncome
+                            totalIncome={dashboardStats?.totalIncome}
+                            simpleAreaChartData={simpleAreaChartData}
+                        />
 
-            <div className="flex flex-wrap max-md:justify-center gap-6 mt-6">
-                <Last60DaysIncome
-                    totalIncome={dashboardStats?.totalIncome}
-                    simpleAreaChartData={simpleAreaChartData}
-                />
 
-                <TransactionCard
-                    transactions={dashboardStats?.recentTransaction}
-                    openTransaction={() => navigate("/dashboard/expense")}
-                />
+                        <TransactionCard
+                            transactions={dashboardStats?.recentTransaction}
+                        />
+                        <TransactionCard
+                            transactions={dashboardStats?.last60DaysIncomeTransactions?.transaction}
+                            openTransaction={() => navigate("/dashboard/income")}
+                        />
+                        <TransactionCard
+                            transactions={dashboardStats?.last30DaysExpenses?.transaction}
+                            openTransaction={() => navigate("/dashboard/expense")}
+                        />
 
-                <FinancialOverview
-                    totalBalance={dashboardStats?.totalBalance}
-                    totalIncome={dashboardStats?.totalIncome}
-                    totalExpense={dashboardStats?.totalExpense}
-                />
+                        {/* PieCharts */}
+                        <FinancialOverview
+                            totalBalance={dashboardStats?.totalBalance}
+                            totalIncome={dashboardStats?.totalIncome}
+                            totalExpense={dashboardStats?.totalExpense}
+                        />
+                        <Last30DaysExpenses
+                            pieChartData={pieChartDataForExpenses}
+                        />
+                    </div>
+                ) : (
+                    <div className="flex items-center justify-center p-8">
+                        <h1 className="font-bold text-2xl text-slate-600">No data for STATS.</h1>
+                    </div>
+                )
+            }
 
-                <Last30DaysExpenses
-                    pieChartData={pieChartDataForExpenses}
-                />
-
-            </div>
         </div>
     );
 }

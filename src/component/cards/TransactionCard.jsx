@@ -4,7 +4,7 @@ export default function TransactionCard({ title, icon, date, amount, type, hideD
 
     return (
 
-        <div className="group relative flex justify-center shadow hover:shadow-md gap-4 mt-2 p-3 rounded-lg hover:bg-gray-200 cursor-pointer duration-200">
+        <div className="group bg-gray-100 relative flex justify-center shadow hover:shadow-md gap-4 mt-2 p-3 rounded-lg hover:bg-gray-200 cursor-pointer duration-200">
             <div className="w-16 h-14 text-xl bg-gray-100 rounded-full text-gray-600 flex justify-center items-center">
                 {icon}
             </div>
@@ -12,7 +12,7 @@ export default function TransactionCard({ title, icon, date, amount, type, hideD
 
             <div className="w-full flex max-[450px]:flex-col max-[450px]:items-end items-center justify-between">
                 <div className="flex flex-col justify-center max-[450px]:items-end items-start">
-                    <p className="text-sm text-gray-600 font-medium">{title}</p>
+                    <p className="text-sm text-slate-600 font-bold">{title}</p>
                     <p className="text-xs text-center text-gray-500 my-1">{date}</p>
                 </div>
                 <div className="flex items-center gap-2">

@@ -3,10 +3,20 @@ import TransactionCard from "./TransactionCard";
 import moment from "moment"
 
 export default function RecentTransactions({ transactions, openTransaction }) {
+    if (!transactions || transactions.length === 0) return <p>No Transactions made to show.</p>;
+    const isAllIncome = transactions.every(txn => txn.type === "income");
+    const isAllExpense = transactions.every(txn => txn.type === "expense");
+
+    let title = "Recent Transactions";
+    if (isAllIncome) title = "Recent Income Transactions"
+    else if (isAllExpense) title = "Recent Expense Transactions";
+
+
+
     return (
-        <div className="lg:w-130 w-full sm:h-[500px] bg-slate-50 p-6 rounded-2xl border hover:shadow-xl duration-200 border-gray-100 shadow-md">
+        <div className="xl:w-130 w-full sm:h-[500px] bg-slate-100 p-6 rounded-2xl border hover:shadow-xl duration-200 border-gray-100 shadow-md">
             <div className="flex items-center justify-between mb-4">
-                <h5 className="sm:text-xl font-semibold text-slate-500">Recent Transactions</h5>
+                <h5 className="sm:text-xl font-semibold text-slate-500">{title}</h5>
                 <p className="text-base text-gray-500">{transactions?.length} items</p>
             </div>
 
