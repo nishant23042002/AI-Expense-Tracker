@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { motion, AnimatePresence } from "framer-motion";
 import { CustomTooltip } from "../utilityComponent/CustomTooltip.jsx";
+import Modal from "../utilityComponent/Modal.jsx";
 
 
 
@@ -20,7 +21,7 @@ import { CustomTooltip } from "../utilityComponent/CustomTooltip.jsx";
 
 
 
-export default function IncomeBySourceAreaChart({ simpleAreaChartData }) {
+export default function Last60DaysIncome({ simpleAreaChartData }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     if (!simpleAreaChartData || simpleAreaChartData.length === 0) return <p>No Transactions made to show.</p>;
 
@@ -64,20 +65,7 @@ export default function IncomeBySourceAreaChart({ simpleAreaChartData }) {
             <AnimatePresence>
                 {
                     isModalOpen && (
-                        <MotionDiv
-                            className="h-[300px] border bg-black w-[350px] left-150 z-50 absolute top-10"
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.5, opacity: 0 }}
-                            transition={{ type: "spring", stiffness: 120 }}
-                        >
-                            <div className="">
-                                <button onClick={() => setIsModalOpen(false)}>
-                                    <HiOutlineX className="text-2xl text-white cursor-pointer" />
-                                </button>
-                                <h1 className="text-center">heelllo</h1>
-                            </div>
-                        </MotionDiv>
+                        <Modal setIsOpenModal={setIsModalOpen}/>
                     )
                 }
             </AnimatePresence>

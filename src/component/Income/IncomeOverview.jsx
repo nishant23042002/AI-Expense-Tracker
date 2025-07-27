@@ -1,0 +1,89 @@
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+    CartesianGrid,
+    Legend
+} from "recharts";
+import { CustomTooltip } from "../utilityComponent/CustomTooltip";
+import { LuArrowRight } from "react-icons/lu";
+import { useEffect, useState } from "react";
+import Modal from "../utilityComponent/Modal";
+
+export default function IncomeOverview({ income, setIsOpenModal, isOpenModal }) {
+    const [filteredIncome, setFilteredIncome] = useState([]);
+    useEffect(() => {
+        const handleResize = () => {
+            const screenWidth = window.innerWidth;
+
+            if (!income) return;
+
+            // Show fewer bars on small screens
+            if (screenWidth < 540) {
+                setFilteredIncome(income.slice(0, 3));
+            } else if (screenWidth < 768) {
+                setFilteredIncome(income.slice(0, 4));
+            } else {
+                setFilteredIncome(income);
+            }
+        };
+
+        handleResize(); // Initial check
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, [income]);
+
+    if (!income || income.length === 0)
+        return <p className="text-center text-gray-500 py-8">No income data available.</p>;
+
+
+    return (
+        <div className="relative bg-slate-100 z-30 rounded-2xl shadow-md p-4 sm:p-6 md:p-8 w-full max-w-full mx-auto mb-10 border border-gray-200">
+            <div className="flex justify-between items-center mb-4 w-full">
+                <h2 className="text-lg font-semibold text-gray-600 mb-4">Income by Source</h2>
+                <button
+                    onClick={() => setIsOpenModal(true)}
+                    className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-gray-200 rounded-lg bg-green-50 hover:bg-gray-100 transition-all"
+                >
+                    Add Income <LuArrowRight size={16} />
+                </button>
+            </div>
+            <div>
+                {
+                    isOpenModal && (
+                        <Modal setIsOpenModal={setIsOpenModal} />
+                    )
+                }
+            </div>
+
+            <div className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px]">
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={filteredIncome}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+                        <XAxis
+                            dataKey="name"
+                            tick={{ fontSize: 12 }}
+                            axisLine={{ stroke: '#ddd' }}
+                        />
+                        <YAxis
+                            tick={{ fontSize: 12 }}
+                            axisLine={{ stroke: '#ddd' }}
+                        />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Legend />
+                        <Bar
+                            dataKey="value"
+                            fill="#4CAF50"
+                            radius={[8, 8, 0, 0]}
+                            barSize={40}
+                        />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+        </div>
+    );
+}
