@@ -5,10 +5,10 @@ import { API_PATHS } from "../../utils/apiPath";
 
 
 
+
 function Income() {
     const [incomeData, setIncomeData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [isOpenModal, setIsOpenModal] = useState(false);
 
     const fetchIncomeData = async () => {
         setLoading(true)
@@ -37,9 +37,9 @@ function Income() {
         }
     }
 
-    // const handleAddIncome = async () => {
-    //     const res = await axiosInstance.post(`${API_PATHS.INCOME.ADD_INCOME}`)
-    // }
+    const handleAddIncome = async () => {
+        const res = await axiosInstance.post(`${API_PATHS.INCOME.ADD_INCOME}`)
+    }
 
     // const handleDeleteIncome = async () => {
     //     const res = await axiosInstance.delete(`${API_PATHS.INCOME.DEL_INCOME}`)
@@ -59,7 +59,7 @@ function Income() {
         <div className="my-5 mx-6">
             <div className="grid grid-cols-1 gap-6">
                 <div className="">
-                    <IncomeOverview income={incomeData} setIsOpenModal={setIsOpenModal} isOpenModal={isOpenModal} />
+                    <IncomeOverview income={incomeData} />
                 </div>
             </div>
         </div>

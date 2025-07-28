@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { HiOutlineX } from "react-icons/hi";
 import { LuArrowRight } from "react-icons/lu";
 import {
     AreaChart,
@@ -14,6 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { CustomTooltip } from "../utilityComponent/CustomTooltip.jsx";
 import Modal from "../utilityComponent/Modal.jsx";
+import { useModal } from "../../hooks/useModal.js";
 
 
 
@@ -22,7 +21,7 @@ import Modal from "../utilityComponent/Modal.jsx";
 
 
 export default function Last60DaysIncome({ simpleAreaChartData }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { isOpenModal, openModal, closeModal } = useModal();
     if (!simpleAreaChartData || simpleAreaChartData.length === 0) return <p>No Transactions made to show.</p>;
 
     const totalIncome = simpleAreaChartData.sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -54,7 +53,7 @@ export default function Last60DaysIncome({ simpleAreaChartData }) {
                 <div className="flex flex-col gap-1.5">
                     <h1 className="text-sm text-gray-500 text-end font-medium">Income: ₹{income?.toLocaleString("en-IN")}</h1>
                     <button
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={openModal}
                         className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-gray-200 rounded-lg bg-green-50 hover:bg-gray-100 transition-all"
                     >
                         Add Income <LuArrowRight size={16} />
@@ -63,11 +62,7 @@ export default function Last60DaysIncome({ simpleAreaChartData }) {
             </div>
 
             <AnimatePresence>
-                {
-                    isModalOpen && (
-                        <Modal setIsOpenModal={setIsModalOpen}/>
-                    )
-                }
+                {isOpenModal && <Modal setIsOpenModal={closeModal} />}
             </AnimatePresence>
             <ResponsiveContainer className="p-4" width="100%" height="85%">
                 <AreaChart data={formattedChartData}>

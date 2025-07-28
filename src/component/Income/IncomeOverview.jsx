@@ -12,8 +12,13 @@ import { CustomTooltip } from "../utilityComponent/CustomTooltip";
 import { LuArrowRight } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import Modal from "../utilityComponent/Modal";
+import { useModal } from "../../hooks/useModal.js"
+import { AnimatePresence } from "framer-motion";
 
-export default function IncomeOverview({ income, setIsOpenModal, isOpenModal }) {
+
+
+export default function IncomeOverview({ income }) {
+    const { isOpenModal, openModal, closeModal } = useModal();
     const [filteredIncome, setFilteredIncome] = useState([]);
     useEffect(() => {
         const handleResize = () => {
@@ -46,19 +51,16 @@ export default function IncomeOverview({ income, setIsOpenModal, isOpenModal }) 
             <div className="flex justify-between items-center mb-4 w-full">
                 <h2 className="text-lg font-semibold text-gray-600 mb-4">Income by Source</h2>
                 <button
-                    onClick={() => setIsOpenModal(true)}
-                    className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-gray-200 rounded-lg bg-green-50 hover:bg-gray-100 transition-all"
+                    onClick={openModal}
+                    className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-gray-200 rounded-lg bg-green-50 hover:bg-green-100 transition-all"
                 >
                     Add Income <LuArrowRight size={16} />
                 </button>
+
+
             </div>
-            <div>
-                {
-                    isOpenModal && (
-                        <Modal setIsOpenModal={setIsOpenModal} />
-                    )
-                }
-            </div>
+
+            {isOpenModal && <Modal setIsOpenModal={closeModal} />}
 
             <div className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px]">
                 <ResponsiveContainer width="100%" height="100%">

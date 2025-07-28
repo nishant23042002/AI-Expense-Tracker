@@ -7,6 +7,7 @@ import Income from "./pages/dashboard/Income"
 import SetGoal from "./pages/dashboard/SetGoal"
 import DashboardLayout from "./component/layout/DashboardLayout"
 import Root from "./Root"
+import { ModalProvider } from "./context/ModalProvider"
 
 
 
@@ -49,5 +50,11 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <ModalProvider>
+      <RouterProvider router={router}>
+
+      </RouterProvider>
+    </ModalProvider>
+  )
 }
