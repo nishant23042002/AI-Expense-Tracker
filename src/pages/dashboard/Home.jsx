@@ -51,10 +51,6 @@ function Home() {
     useEffect(() => {
         fetchDashboardStats();
     }, []);
-    console.log("Last60daysIncome Transactions", simpleAreaChartData);
-    console.log("Recent transaction: ", dashboardStats?.recentTransaction);
-    console.log("Income transaction: ", dashboardStats?.last60DaysIncomeTransactions?.transaction);
-    console.log("Expense transaction: ", dashboardStats?.last30DaysExpenses?.transaction);
 
     return (
         <div className="my-5 mx-auto px-4">

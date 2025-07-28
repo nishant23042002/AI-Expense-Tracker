@@ -1,7 +1,18 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { HiOutlineX } from "react-icons/hi";
 
-export default function Modal({ setIsOpenModal }) {
+export default function Modal({ setIsOpenModal, handleAddIncome }) {
+    const [addIncome, setAddIncome] = useState({
+        source: "",
+        amount: "",
+        receivedDate: "",
+        icon: "",
+        category: ""
+    })
+
+    const handleChange = (key, value) => setAddIncome((prev) => ({ ...prev, [key]: value }));
+
     const MotionDiv = motion.div
     return (
         <AnimatePresence>
@@ -29,6 +40,8 @@ export default function Modal({ setIsOpenModal }) {
                                     Source <span className="text-red-500">*</span>
                                 </label>
                                 <input
+                                    onChange={(e) => handleChange("source", e.target.value)}
+                                    value={addIncome.source}
                                     type="text"
                                     name="source"
                                     id="source"
@@ -44,6 +57,8 @@ export default function Modal({ setIsOpenModal }) {
                                     Icon (optional)
                                 </label>
                                 <input
+                                    value={addIncome.icon}
+                                    onChange={(e) => handleChange("icon", e.target.value)}
                                     type="text"
                                     name="icon"
                                     id="icon"
@@ -58,6 +73,8 @@ export default function Modal({ setIsOpenModal }) {
                                     Amount <span className="text-red-500">*</span>
                                 </label>
                                 <input
+                                    value={addIncome.amount}
+                                    onChange={(e) => handleChange("amount", e.target.value)}
                                     type="number"
                                     name="amount"
                                     id="amount"
@@ -68,28 +85,13 @@ export default function Modal({ setIsOpenModal }) {
                                 />
                             </div>
 
-                            {/* Category */}
-                            <div>
-                                <label htmlFor="category" className="block text-sm font-medium text-slate-600 mb-1">
-                                    Category
-                                </label>
-                                <select
-                                    name="category"
-                                    id="category"
-                                    className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-400 transition"
-                                >
-                                    <option value="">Select a category</option>
-                                    {/* Example static options */}
-                                    <option value="salary">Salary</option>
-                                    <option value="freelance">Freelance</option>
-                                    <option value="business">Business</option>
-                                </select>
-                            </div>
 
                             {/* Received Date */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-600">Received Date</label>
                                 <input
+                                    value={addIncome.receivedDate}
+                                    onChange={(e) => handleChange("receivedDate", e.target.value)}
                                     type="date"
                                     name="receivedDate"
                                     size={"300px"}
@@ -100,8 +102,9 @@ export default function Modal({ setIsOpenModal }) {
                             {/* Submit Button */}
                             <div className="pt-4">
                                 <button
+                                    onClick={() => handleAddIncome(addIncome)}
                                     type="submit"
-                                    className="w-full md:w-auto px-6 py-2 rounded-lg bg-green-500 text-white font-medium hover:bg-green-600 transition"
+                                    className="w-full  px-6 py-2 rounded-lg bg-green-500 cursor-pointer text-white font-semibold hover:bg-green-600 transition"
                                 >
                                     Save Income
                                 </button>
