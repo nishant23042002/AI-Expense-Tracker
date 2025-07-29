@@ -42,7 +42,6 @@ export default function IncomeOverview({ income, handleAddIncome }) {
         return () => window.removeEventListener("resize", handleResize);
     }, [income]);
 
-    if (!income || income.length === 0) return <p className="text-center text-gray-500 py-8">No income data available.</p>;
     const totalAmount = income.reduce((acc, curr) => acc + curr.value, 0)
     return (
         <div>

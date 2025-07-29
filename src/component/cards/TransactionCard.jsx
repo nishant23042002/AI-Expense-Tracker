@@ -18,7 +18,7 @@ export default function TransactionCard({ title, icon, date, amount, type, hideD
                 <div className="flex items-center gap-2">
                     {
                         !hideDelBtn && (
-                            <button onClick={onDelete} className="text-gray-500 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                            <button  className="text-gray-500 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                                 <LuTrash size={18} />
                             </button>
                         )
