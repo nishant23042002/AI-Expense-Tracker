@@ -10,39 +10,19 @@ import {
 } from "recharts";
 import { CustomTooltip } from "../utilityComponent/CustomTooltip";
 import { LuArrowRight } from "react-icons/lu";
-import { useEffect, useState } from "react";
 import Modal from "../utilityComponent/Modal";
 import { useModal } from "../../hooks/useModal.js"
+import { memo, useMemo } from "react";
 
 
 
 
-export default function IncomeOverview({ income, handleAddIncome }) {
+function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
     const { isOpenModal, openModal, closeModal } = useModal();
-    const [filteredIncome, setFilteredIncome] = useState([]);
-    useEffect(() => {
-        const handleResize = () => {
-            const screenWidth = window.innerWidth;
 
-            if (!income) return;
-
-            // Show fewer bars on small screens
-            if (screenWidth < 540) {
-                setFilteredIncome(income.slice(0, 3));
-            } else if (screenWidth < 768) {
-                setFilteredIncome(income.slice(0, 4));
-            } else {
-                setFilteredIncome(income);
-            }
-        };
-
-        handleResize(); // Initial check
-        window.addEventListener("resize", handleResize);
-
-        return () => window.removeEventListener("resize", handleResize);
-    }, [income]);
-
-    const totalAmount = income.reduce((acc, curr) => acc + curr.value, 0)
+    const totalAmount = useMemo(() => {
+        return income.reduce((acc, curr) => acc + curr.value, 0);
+    }, [income])
     return (
         <div>
             <h1 className="text-2xl mb-4 font-semibold text-slate-600">Income Overview: </h1>
@@ -55,26 +35,19 @@ export default function IncomeOverview({ income, handleAddIncome }) {
                             onClick={openModal}
                             className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-gray-200 rounded-lg bg-green-50 hover:bg-green-100 transition-all"
                         >
-                            Add Income <LuArrowRight size={16} />
+                            {type == "income" ? "Add Income" : "Add Expense"} <LuArrowRight size={16} />
                         </button>
                     </div>
                 </div>
 
-                {isOpenModal && <Modal handleAddIncome={handleAddIncome} setIsOpenModal={closeModal} />}
+                {isOpenModal && <Modal type={type} handleSubmit={handleSubmit} setIsOpenModal={closeModal} isSubmitting={isSubmitting} />}
 
                 <div className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px]">
                     <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={filteredIncome}>
+                        <BarChart data={income}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
-                            <XAxis
-                                dataKey="name"
-                                tick={{ fontSize: 12 }}
-                                axisLine={{ stroke: '#ddd' }}
-                            />
-                            <YAxis
-                                tick={{ fontSize: 12 }}
-                                axisLine={{ stroke: '#ddd' }}
-                            />
+                            <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                            <YAxis tick={{ fontSize: 12 }} />
                             <Tooltip content={<CustomTooltip />} />
                             <Legend />
                             <Bar
@@ -90,3 +63,4 @@ export default function IncomeOverview({ income, handleAddIncome }) {
         </div>
     );
 }
+export default memo(IncomeOverview)

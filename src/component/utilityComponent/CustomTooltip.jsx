@@ -6,7 +6,7 @@ export const CustomTooltip = ({ active, payload, label }) => {
 
         return (
             <div className="bg-white shadow-md border border-gray-200 rounded p-2 text-sm">
-                <p className="font-bold text-slate-600">{data?.name}</p>
+                <p className="font-bold text-slate-600 truncate">{data?.name}</p>
                 {
                     data.date && (
                         <p className="font-bold text-slate-600">

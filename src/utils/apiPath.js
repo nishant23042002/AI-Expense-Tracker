@@ -12,7 +12,7 @@ export const API_PATHS = {
     },
     INCOME: {
         ADD_INCOME: "/income/addIncome",
-        DEL_INCOME: "/income/:id",
+        DEL_INCOME: "/income",
         Dwnld_INCOME: "/income/downloadIncome",
         GET_ALL_INCOME: "/income/getAllIncome"
     },
@@ -20,7 +20,7 @@ export const API_PATHS = {
         ADD_EXPENSE: "/expense/addexpense",
         GET_MY_EXPENSE: "/expense/getmyexpense",
         UPLOAD_EXPENSE: "/expense/myexpense/upload-receipt",
-        DEL_EXPENSE: "/expense/:id"
+        DEL_EXPENSE: "/expense"
     },
     GOAL: {
         SET_GOAL: "/goal/setgoal",

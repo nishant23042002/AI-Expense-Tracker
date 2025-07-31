@@ -33,6 +33,7 @@ const routeToMenu = {
     "/dashboard/income": "Income",
     "/dashboard/expense": "Expense",
     "/dashboard/setgoal": "Set Goal",
+    "/dashboard/transactions": "Transactions",
 };
 
 const DashboardLayout = () => {

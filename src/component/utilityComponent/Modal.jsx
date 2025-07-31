@@ -2,18 +2,25 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { HiOutlineX } from "react-icons/hi";
 
-export default function Modal({ setIsOpenModal, handleAddIncome }) {
-    const [addIncome, setAddIncome] = useState({
+export default function Modal({
+    type,
+    setIsOpenModal,
+    handleSubmit,
+    isSubmitting
+}) {
+    const isIncome = type === "income";
+
+    const [formData, setFormData] = useState({
         source: "",
         amount: "",
         receivedDate: "",
         icon: "",
         category: ""
-    })
+    });
 
-    const handleChange = (key, value) => setAddIncome((prev) => ({ ...prev, [key]: value }));
+    const handleChange = (key, value) => setFormData((prev) => ({ ...prev, [key]: value }));
 
-    const MotionDiv = motion.div
+    const MotionDiv = motion.div;
     return (
         <AnimatePresence>
             <MotionDiv
@@ -27,27 +34,28 @@ export default function Modal({ setIsOpenModal, handleAddIncome }) {
                     <div className="relative pb-6">
                         {/* Header */}
                         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-300">
-                            <h1 className="text-lg font-semibold text-slate-700">Add Income</h1>
+                            <h1 className="text-lg font-semibold text-slate-700">
+                                {isIncome ? "Add Income" : "Add Expense"}
+                            </h1>
                             <button onClick={setIsOpenModal}>
                                 <HiOutlineX className="text-2xl text-slate-600 hover:text-red-500 transition cursor-pointer" />
                             </button>
                         </div>
 
-                        {/* Modal Content goes here */}
+                        {/* Content */}
                         <div className="p-6 md:p-8 bg-slate-100 rounded-xl space-y-6">
+                            {/* Source/Title */}
                             <div>
                                 <label htmlFor="source" className="block text-sm font-medium text-slate-600 mb-1">
-                                    Source <span className="text-red-500">*</span>
+                                    {isIncome ? "Source" : "Title"} <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     onChange={(e) => handleChange("source", e.target.value)}
-                                    value={addIncome.source}
+                                    value={formData.source}
                                     type="text"
-                                    name="source"
                                     id="source"
-                                    placeholder="e.g., Freelance, Salary"
-                                    required
-                                    className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-600 transition"
+                                    placeholder={isIncome ? "e.g., Salary, Freelance" : "e.g., Rent, Food"}
+                                    className={`${isIncome ? "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-green-200" : "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-red-500"}`}
                                 />
                             </div>
 
@@ -57,13 +65,12 @@ export default function Modal({ setIsOpenModal, handleAddIncome }) {
                                     Icon (optional)
                                 </label>
                                 <input
-                                    value={addIncome.icon}
                                     onChange={(e) => handleChange("icon", e.target.value)}
+                                    value={formData.icon}
                                     type="text"
-                                    name="icon"
                                     id="icon"
-                                    placeholder="e.g., 💼, 🛒"
-                                    className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-400 transition"
+                                    placeholder={`${isIncome ? "e.g. 💼, 📊" : "e.g. 💸, 🍕"}`}
+                                    className={`${isIncome ? "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-green-200" : "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-red-500"}`}
                                 />
                             </div>
 
@@ -73,47 +80,50 @@ export default function Modal({ setIsOpenModal, handleAddIncome }) {
                                     Amount <span className="text-red-500">*</span>
                                 </label>
                                 <input
-                                    value={addIncome.amount}
                                     onChange={(e) => handleChange("amount", e.target.value)}
+                                    value={formData.amount}
                                     type="number"
-                                    name="amount"
                                     id="amount"
                                     placeholder="e.g., 4000"
                                     required
-                                    step="500"
-                                    className="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-400 transition"
+                                    step="100"
+                                    className={`${isIncome ? "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-green-200" : "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-red-500"}`}
                                 />
                             </div>
 
-
-                            {/* Received Date */}
+                            {/* Date */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-600">Received Date</label>
+                                <label htmlFor="receivedDate" className="block text-sm font-medium text-gray-600 mb-1">
+                                    {isIncome ? "Received Date" : "Spent Date"}
+                                </label>
                                 <input
-                                    value={addIncome.receivedDate}
                                     onChange={(e) => handleChange("receivedDate", e.target.value)}
+                                    value={formData.receivedDate}
                                     type="date"
-                                    name="receivedDate"
-                                    size={"300px"}
-                                    className="w-full mt-1 p-2 text-slate-600 border border-slate-200 focus:outline-none focus:ring focus:ring-green-200 rounded-md"
+                                    id="receivedDate"
+                                    className={`${isIncome ? "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-green-200" : "w-full p-2 text-slate-600 border border-slate-200 rounded-md focus:outline-none focus:ring focus:ring-red-500"}`}
                                 />
                             </div>
 
                             {/* Submit Button */}
                             <div className="pt-4">
                                 <button
-                                    onClick={() => handleAddIncome(addIncome)}
-                                    type="submit"
-                                    className="w-full  px-6 py-2 rounded-lg bg-green-500 cursor-pointer text-white font-semibold hover:bg-green-600 transition"
+                                    onClick={() => handleSubmit(formData)}
+                                    disabled={isSubmitting}
+                                    className={`${isIncome ? "w-full flex gap-4 items-center justify-center px-6 py-2 rounded-lg bg-green-500 text-white font-semibold hover:bg-green-600 transition" : "w-full flex gap-4 items-center justify-center px-6 py-2 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition"}`}
                                 >
-                                    Save Income
+                                    {isSubmitting
+                                        ? isIncome ? "Adding Income" : "Adding Expense"
+                                        : isIncome ? "Add Income" : "Add Expense"}
+                                    {isSubmitting && (
+                                        <div className="w-4 h-4 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    )}
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </MotionDiv>
-        </AnimatePresence >
-    )
+        </AnimatePresence>
+    );
 }

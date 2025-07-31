@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import axiosInstance from "../../utils/axiosInstance.js"
 import { API_PATHS } from "../../utils/apiPath.js";
-import HomeInfoCard from "../../component/cards/HomeInfoCard.jsx";
+import HomeInfoCard from "../../component/Cards/HomeInfoCard.jsx";
 import { IoMdCard } from "react-icons/io"
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu"
 import { useNavigate } from "react-router-dom"
-import FinancialOverview from "../../component/cards/FinancialOverview.jsx";
-import Last30DaysExpenses from "../../component/cards/Last30DaysExpenses.jsx";
-import Last60DaysIncome from "../../component/cards/Last60DaysIncome.jsx";
-import RecentTransactions from "../../component/cards/RecentTransactions.jsx";
+import FinancialOverview from "../../component/Cards/FinancialOverview.jsx";
+import Last30DaysExpenses from "../../component/Cards/Last30DaysExpenses.jsx";
+import Last60DaysIncome from "../../component/Cards/Last60DaysIncome.jsx";
+import TransactionContainer from "../../component/Cards/TransactionContainer.jsx";
 
 
 function Home() {
@@ -89,35 +89,6 @@ function Home() {
                             totalIncome={dashboardStats?.totalIncome}
                             simpleAreaChartData={simpleAreaChartData}
                         />
-
-                
-                        <RecentTransactions
-                            transactions={dashboardStats?.recentTransaction}
-                            openTransaction={() => navigate("/dashboard/transactions")}
-                            title="Recent Transactions"
-                            length={dashboardStats?.recentTransaction?.length}
-                            dateKey="date"
-                            sourceKey={(trxn) => trxn?.type === "income" ? trxn?.source : trxn?.category}
-                        />
-
-                        <RecentTransactions
-                            transactions={dashboardStats?.last30DaysExpenses?.transaction}
-                            openTransaction={() => navigate("/dashboard/expense")}
-                            title="Recent Expense Transactions"
-                            length={expenseTxnLength}
-                            dateKey="spentDate"
-                            sourceKey="category"
-                        />
-
-                        <RecentTransactions
-                            transactions={dashboardStats?.last60DaysIncomeTransactions?.transaction}
-                            openTransaction={() => navigate("/dashboard/income")}
-                            title="Recent Income Transactions"
-                            length={incomeTxnLength}
-                            dateKey="receivedDate"
-                            sourceKey="source"
-                        />
-
                         {/* PieCharts */}
                         <FinancialOverview
                             totalBalance={dashboardStats?.totalBalance}
@@ -126,6 +97,33 @@ function Home() {
                         />
                         <Last30DaysExpenses
                             pieChartData={pieChartDataForExpenses}
+                        />
+
+
+
+                        <TransactionContainer
+                            transactions={dashboardStats?.recentTransaction?.slice(0, 4)}
+                            openTransaction={() => navigate("/dashboard/transactions")}
+                            title="Recent Transactions"
+                            length={dashboardStats?.recentTransaction?.length}
+                            dateKey="date"
+                            seemoreBtn                        
+                        />
+                        <TransactionContainer
+                            transactions={dashboardStats?.last30DaysExpenses?.transaction?.slice(0, 4)}
+                            openTransaction={() => navigate("/dashboard/expense")}
+                            title="Recent Expense Transactions"
+                            length={expenseTxnLength}
+                            dateKey="spentDate"
+                            seemoreBtn
+                        />
+                        <TransactionContainer
+                            transactions={dashboardStats?.last60DaysIncomeTransactions?.transaction.slice(0, 4)}
+                            openTransaction={() => navigate("/dashboard/income")}
+                            title="Recent Income Transactions"
+                            length={incomeTxnLength}
+                            dateKey="receivedDate"
+                            seemoreBtn
                         />
                     </div>
                 ) : (
