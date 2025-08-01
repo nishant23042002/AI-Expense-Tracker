@@ -1,6 +1,6 @@
 // src/context/ModalProvider.jsx
 import { useState } from "react";
-import { ModalContext } from "./ModalContext";
+import { ModalContext } from "./modalContext.jsx";
 
 export const ModalProvider = ({ children }) => {
     const [isOpenModal, setIsOpenModal] = useState(false);

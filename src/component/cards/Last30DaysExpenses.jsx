@@ -24,7 +24,6 @@ const COLORS = [
 
 
 function Last30DaysExpenses({ pieChartData }) {
-    if (!pieChartData || pieChartData.length === 0) return <p>No expenses to show.</p>;
 
     const sortedPieChartData = [...pieChartData].sort((a, b) => a.name.localeCompare(b.name));
     const totalExpense = sortedPieChartData.reduce((acc, curr) => acc + curr.value, 0);

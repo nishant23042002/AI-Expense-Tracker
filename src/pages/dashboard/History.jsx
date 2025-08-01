@@ -1,8 +1,7 @@
-import { ToastContainer } from "react-toastify";
-import SetGoalForm from "../../component/SetgoalStats/SetGoalForm";
-import GoalList from "../../component/SetgoalStats/GoalList";
+import { ToastContainer } from "react-toastify"
+import AllTransactions from "../../component/History/AllTransactions"
 
-export default function SetGoal() {
+export default function History(){
     return (
         <div className="my-5 mx-6">
             <ToastContainer
@@ -20,8 +19,7 @@ export default function SetGoal() {
             <div className="grid grid-cols-1 gap-6">
 
                 <div className="">
-                    <SetGoalForm />
-                    <GoalList />
+                    <AllTransactions />
                 </div>
             </div>
         </div>

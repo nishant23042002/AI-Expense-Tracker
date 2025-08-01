@@ -30,7 +30,7 @@ export default function Modal({
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 120 }}
             >
-                <div className="relative w-full max-w-2xl max-h-[80vh] my-4 overflow-y-auto rounded-xl shadow-lg bg-slate-100">
+                <div className="relative w-full max-w-2xl max-h-[80vh] my-4 rounded-xl shadow-lg bg-slate-100 overflow-y-hidden">
                     <div className="relative pb-6">
                         {/* Header */}
                         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-300">

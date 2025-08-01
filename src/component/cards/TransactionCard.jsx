@@ -1,13 +1,29 @@
 import { LuTrash, LuTrendingDown, LuTrendingUp } from "react-icons/lu";
 import { FcIdea } from "react-icons/fc";
-import { useState } from "react";
+import { memo, useState } from "react";
+import { CiMenuKebab } from "react-icons/ci";
+import Swal from 'sweetalert2';
 
 
 
-
-
-export default function TransactionCard({ title, icon, date, amount, type, txnTime, hideBtn,handleDeleteIncome, aiRecommendation }) {
+function TransactionCard({ title, icon, date, amount, type, txnTime, hideBtn, handleDeleteIncome, aiRecommendation }) {
     const [aiTip, setAiTip] = useState(false);
+
+    const confirmDelete = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to recover this transaction!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#aaa',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleDeleteIncome();
+            }
+        });
+    };
     return (
         <div className="group my-2 border border-gray-200 bg-gray-100 relative flex flex-col sm:flex-row gap-3 sm:gap-4 p-3 rounded-lg hover:bg-gray-200 shadow hover:shadow-md transition-all duration-200">
             {/* Icon */}
@@ -33,7 +49,7 @@ export default function TransactionCard({ title, icon, date, amount, type, txnTi
 
                     {hideBtn && (
                         <button
-                        onClick={handleDeleteIncome}
+                            onClick={confirmDelete}
                             className="text-md border border-gray-200 text-red-400 p-1.5 cursor-pointer rounded-full hover:bg-red-50 transition opacity-0 group-hover:opacity-100"
                         >
                             <LuTrash size={18} />
@@ -50,12 +66,16 @@ export default function TransactionCard({ title, icon, date, amount, type, txnTi
                 </div>
 
                 {/* Amount */}
-                <div className={`flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium 
-                    ${type === "income" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"}`}>
-                    {type === "income" ? `+ ₹${amount}` : `- ₹${amount}`}
-                    {type === "income" ? <LuTrendingUp /> : <LuTrendingDown />}
+                <div>
+                    <button className="w-full items-center flex justify-end gap-2 text-xl cursor-pointer"><CiMenuKebab /></button>
+                    <div className={`flex items-center justify-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium ${type === "income" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"}`}>
+                        {type === "income" ? `+ ₹${amount}` : `- ₹${amount}`}
+                        {type === "income" ? <LuTrendingUp /> : <LuTrendingDown />}
+                    </div>
+
                 </div>
             </div>
         </div>
     );
 }
+export default memo(TransactionCard)

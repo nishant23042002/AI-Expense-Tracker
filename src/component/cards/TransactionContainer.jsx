@@ -12,7 +12,7 @@ export default function TransactionContainer({
     handleDeleteIncome,
     hideBtn
 }) {
-    if (!transactions || transactions.length === 0) return <p>No Transactions made to show.</p>;
+
 
     return (
         <div className="xl:w-160 w-full h-auto bg-white p-6 rounded-2xl border hover:shadow-xl duration-200 border-gray-200 shadow-md">

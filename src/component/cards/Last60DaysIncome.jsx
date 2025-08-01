@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Last60DaysIncome({ simpleAreaChartData }) {
     const navigate = useNavigate()
-    if (!simpleAreaChartData || simpleAreaChartData.length === 0) return <p>No Transactions made to show.</p>;
 
     const groupedByName = {};
 

@@ -8,7 +8,7 @@ import SetGoal from "./pages/dashboard/SetGoal"
 import DashboardLayout from "./component/layout/DashboardLayout"
 import Root from "./Root"
 import { ModalProvider } from "./context/ModalProvider"
-import AllIncomeTransactions from "./component/IncomeStats/AllIncomeTransactions"
+import History from "./pages/dashboard/History"
 
 
 
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         path: "transactions",
-        element: <AllIncomeTransactions />,
+        element: <History />,
       },
     ],
   },

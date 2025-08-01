@@ -65,7 +65,7 @@ function Expense() {
     
 
 
-    const handleDeleteIncome = async (expenseId) => {
+    const handleDeleteExpense = async (expenseId) => {
         try {
             let res = await axiosInstance.delete(`${API_PATHS.EXPENSE.DEL_EXPENSE}/${expenseId}`);
             toast.success(res.message || "Expense Deleted")
@@ -96,7 +96,7 @@ function Expense() {
 
                 <div className="">
                     <ExpenseOverview type="expense" expenseChartData={expenseTxnData} handleSubmit={modalType === "expense" && handleAddExpense} isSubmitting={isSubmitting} />
-                    <AllExpenseTransactions expenseTxnData={expenseTxnData} handleDeleteIncome={handleDeleteIncome} />
+                    <AllExpenseTransactions expenseTxnData={expenseTxnData} handleDeleteExpense={handleDeleteExpense} />
                 </div>
             </div>
         </div>

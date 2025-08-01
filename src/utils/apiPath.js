@@ -26,6 +26,6 @@ export const API_PATHS = {
         SET_GOAL: "/goal/setgoal",
         GOAL_PROGRESS: "/goal/goalprogress",
         GET_ALL_GOALS: "/goal/getallgoals",
-        REFRESH_GOAL_TIP: "/goal/refreshgoaltip/:goalId"
+        REFRESH_GOAL_TIP: "/goal/refreshgoaltip"
     }
 }

@@ -1,7 +1,7 @@
 import { memo } from "react";
 import TransactionContainer from "../Cards/TransactionContainer";
 
-function AllExpenseTransactions({ expenseTxnData, handleDeleteIncome }) {
+function AllExpenseTransactions({ expenseTxnData, handleDeleteExpense }) {
     if (!expenseTxnData.length) {
         return (
             <div className="text-center text-gray-500 mt-6">
@@ -16,7 +16,7 @@ function AllExpenseTransactions({ expenseTxnData, handleDeleteIncome }) {
                 title="Overall Expense Transactions"
                 length={expenseTxnData?.length || 0}
                 dateKey="spentDate"
-                handleDeleteIncome={handleDeleteIncome}
+                handleDeleteIncome={handleDeleteExpense}
                 hideBtn
             />
         </div>
