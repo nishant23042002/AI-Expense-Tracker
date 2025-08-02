@@ -61,22 +61,22 @@ function Home() {
                     icon={<IoMdCard />}
                     label="Total Balance"
                     value={dashboardStats?.totalBalance}
-                    iconColor={"bg-purple-800"}
-                    bgColor={"bg-purple-50"}
+                    iconColor="bg-indigo-600 text-white"
+                    bgColor="bg-indigo-50"
                 />
                 <HomeInfoCard
                     icon={<LuWalletMinimal />}
                     label="Total Income"
                     value={dashboardStats?.totalIncome}
-                    iconColor={"bg-yellow-500"}
-                    bgColor={"bg-yellow-50"}
+                    iconColor="bg-emerald-500 text-white"
+                    bgColor="bg-emerald-50"
                 />
                 <HomeInfoCard
                     icon={<LuHandCoins />}
                     label="Total Expenses"
                     value={dashboardStats?.totalExpense}
-                    iconColor={"bg-red-500"}
-                    bgColor={"bg-red-50"}
+                    iconColor="bg-rose-500 text-white"
+                    bgColor="bg-rose-50"
                     navigate={() => navigate("/dashboard/expense")}
                 />
 
@@ -107,7 +107,7 @@ function Home() {
                             title="Recent Transactions"
                             length={dashboardStats?.recentTransaction?.length}
                             dateKey="date"
-                            seemoreBtn                        
+                            seemoreBtn
                         />
                         <TransactionContainer
                             transactions={dashboardStats?.last30DaysExpenses?.transaction?.slice(0, 4)}

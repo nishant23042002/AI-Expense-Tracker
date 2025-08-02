@@ -19,10 +19,10 @@ function FinancialOverview({ totalBalance, totalIncome, totalExpense }) {
     ]
     if (!balanceData || balanceData.length === 0) return <p>No Financial Data to show.</p>;
     return (
-        <div className="lg:w-130 w-full h-[500px] bg-slate-100 p-6 rounded-2xl border hover:shadow-xl duration-200 border-gray-100 shadow-md">
+        <div className="lg:w-130 w-full h-[500px] bg-slate-900 p-6 rounded-2xl border hover:shadow-xl duration-200 border-slate-700 shadow-md">
             <div className="flex justify-between items-center w-full">
-                <h5 className="sm:text-xl font-semibold text-slate-500">Financial Overview</h5>
-                <span className="text-sm text-gray-500 font-medium">Total Income: ₹{totalIncome?.toLocaleString("en-IN")}</span>
+                <h5 className="sm:text-xl font-semibold text-slate-200">Financial Overview</h5>
+                <span className="text-sm text-gray-200 font-medium">Total Income: ₹{totalIncome?.toLocaleString("en-IN")}</span>
             </div>
             <ResponsiveContainer width="100%" height={380}>
                 <PieChart>
@@ -35,7 +35,7 @@ function FinancialOverview({ totalBalance, totalIncome, totalExpense }) {
                         outerRadius={100}
                         labelLine={false}
                         label={({ percent, x, y }) => (
-                            <text x={x} y={y} fill="#333" textAnchor="center" dominantBaseline="central" fontSize={12}>
+                            <text x={x} y={y} fill="#dcdcdc" textAnchor="center" dominantBaseline="central" fontSize={12}>
                                 {(percent * 100).toFixed(0)}%
                             </text>
                         )}

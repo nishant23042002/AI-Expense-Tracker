@@ -24,16 +24,16 @@ function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
         return income.reduce((acc, curr) => acc + curr.value, 0);
     }, [income])
     return (
-        <div>
-            <h1 className="text-2xl mb-4 font-semibold text-slate-600">Income Overview: </h1>
-            <div className="relative bg-slate-100 z-30 rounded-2xl shadow-md p-4 sm:p-6 md:p-8 w-full max-w-full mx-auto mb-10 border border-gray-200">
+        <div className="bg-slate-900">
+            <h1 className="text-2xl mb-4 font-semibold text-slate-200">Income Overview: </h1>
+            <div className="relative bg-slate-900 z-30 rounded-2xl shadow-md p-4 sm:p-6 md:p-8 w-full max-w-full mx-auto mb-10 border border-slate-700">
                 <div className="flex justify-between items-center mb-4 w-full">
-                    <h2 className="text-lg font-semibold text-gray-600 mb-4">Income by Source</h2>
+                    <h2 className="text-lg font-semibold text-gray-200 mb-4">Income by Source</h2>
                     <div className="flex flex-col items-center gap-3">
-                        <span className="text-slate-600 font-medium">Total: ₹ {totalAmount.toLocaleString("en-IN") || 0}</span>
+                        <span className="text-slate-200 font-medium">Total: ₹ {totalAmount.toLocaleString("en-IN") || 0}</span>
                         <button
                             onClick={openModal}
-                            className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-gray-200 rounded-lg bg-green-50 hover:bg-green-100 transition-all"
+                            className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-slate-700 rounded-lg bg-slate-900 hover:bg-green-100 transition-all"
                         >
                             {type == "income" ? "Add Income" : "Add Expense"} <LuArrowRight size={16} />
                         </button>
@@ -46,8 +46,8 @@ function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={income}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
-                            <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-                            <YAxis tick={{ fontSize: 12 }} />
+                            <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#ddd"  />
+                            <YAxis tick={{ fontSize: 12 }} stroke="#ddd" />
                             <Tooltip content={<CustomTooltip />} />
                             <Legend />
                             <Bar

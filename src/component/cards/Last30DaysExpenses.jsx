@@ -29,10 +29,10 @@ function Last30DaysExpenses({ pieChartData }) {
     const totalExpense = sortedPieChartData.reduce((acc, curr) => acc + curr.value, 0);
 
     return (
-        <div className="lg:w-130 w-full h-[500px] bg-slate-100 p-6 rounded-2xl border hover:shadow-xl duration-200 border-gray-100 shadow-md">
+        <div className="lg:w-130 w-full h-[500px] bg-slate-900 p-6 rounded-2xl border hover:shadow-xl duration-200 border-slate-700 shadow-md">
             <div className="flex justify-between items-center w-full">
-                <h2 className="sm:text-xl font-semibold text-slate-500">Expenses Last 30 Days</h2>
-                <span className="text-sm text-gray-500 font-medium">Total Spent: ₹{totalExpense?.toLocaleString("en-IN")}</span>
+                <h2 className="sm:text-xl font-semibold text-slate-200">Expenses Last 30 Days</h2>
+                <span className="text-sm text-gray-200 font-medium">Total Spent: ₹{totalExpense?.toLocaleString("en-IN")}</span>
             </div>
 
             <ResponsiveContainer width="100%" height={380}>
@@ -47,7 +47,7 @@ function Last30DaysExpenses({ pieChartData }) {
                         fill="#8884d8"
                         labelLine={false}
                         label={({ percent, x, y }) => (
-                            <text x={x} y={y} fill="#333" textAnchor="center" dominantBaseline="central" fontSize={12}>
+                            <text x={x} y={y} fill="#dcdcdc" textAnchor="center" dominantBaseline="central" fontSize={12}>
                                 {(percent * 100).toFixed(0)}%
                             </text>
                         )}

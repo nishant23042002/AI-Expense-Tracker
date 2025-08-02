@@ -4,11 +4,12 @@ import TransactionContainer from "../Cards/TransactionContainer";
 function AllExpenseTransactions({ expenseTxnData, handleDeleteExpense }) {
     if (!expenseTxnData.length) {
         return (
-            <div className="text-center text-gray-500 mt-6">
-                No income transactions found.
+            <div className="text-center text-slate-500 mt-6">
+                No expense transactions found.
             </div>
         );
     }
+
     return (
         <div className="w-full">
             <TransactionContainer
@@ -20,7 +21,7 @@ function AllExpenseTransactions({ expenseTxnData, handleDeleteExpense }) {
                 hideBtn
             />
         </div>
-    )
+    );
 }
 
 export default memo(AllExpenseTransactions);

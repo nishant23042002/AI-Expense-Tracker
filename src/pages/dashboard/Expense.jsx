@@ -62,7 +62,7 @@ function Expense() {
     };
 
 
-    
+
 
 
     const handleDeleteExpense = async (expenseId) => {
@@ -79,7 +79,7 @@ function Expense() {
         fetchExpenseData();
     }, [])
     return (
-        <div className="my-5 mx-6">
+        <div className="my-5 mx-auto px-4">
             <ToastContainer
                 position="top-center"
                 autoClose={3000}
@@ -93,13 +93,19 @@ function Expense() {
                 theme="light"
             />
             <div className="grid grid-cols-1 gap-6">
-
-                <div className="">
-                    <ExpenseOverview type="expense" expenseChartData={expenseTxnData} handleSubmit={modalType === "expense" && handleAddExpense} isSubmitting={isSubmitting} />
-                    <AllExpenseTransactions expenseTxnData={expenseTxnData} handleDeleteExpense={handleDeleteExpense} />
-                </div>
+                <ExpenseOverview
+                    type="expense"
+                    expenseChartData={expenseTxnData}
+                    handleSubmit={modalType === "expense" && handleAddExpense}
+                    isSubmitting={isSubmitting}
+                />
+                <AllExpenseTransactions
+                    expenseTxnData={expenseTxnData}
+                    handleDeleteExpense={handleDeleteExpense}
+                />
             </div>
         </div>
+
     )
 }
 export default Expense;

@@ -21,11 +21,5 @@ export const API_PATHS = {
         GET_MY_EXPENSE: "/expense/getmyexpense",
         UPLOAD_EXPENSE: "/expense/myexpense/upload-receipt",
         DEL_EXPENSE: "/expense"
-    },
-    GOAL: {
-        SET_GOAL: "/goal/setgoal",
-        GOAL_PROGRESS: "/goal/goalprogress",
-        GET_ALL_GOALS: "/goal/getallgoals",
-        REFRESH_GOAL_TIP: "/goal/refreshgoaltip"
     }
 }

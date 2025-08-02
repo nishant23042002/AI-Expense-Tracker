@@ -93,15 +93,15 @@ export default function AllTransactions() {
 
 
     return (
-        <div className="min-h-screen bg-slate-100 p-4 sm:p-6 md:p-8">
+        <div className="min-h-screen bg-slate-900 border border-slate-700 rounded-xl p-4 sm:p-6 md:p-8">
             <div className=" mx-auto">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">📜 Transaction History</h1><span className="text-blue-600 font-bold text-md">Total Transactions made : {txnData?.length || 0}</span>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-200 mb-2">📜 Transaction History</h1><span className="text-blue-600 font-bold text-md">Total Transactions made : {txnData?.length || 0}</span>
                 </div>
-                <p className="text-gray-500 mb-6">Click a transaction to view more details.</p>
+                <p className="text-slate-200 mb-6">Click a transaction to view more details.</p>
 
                 {/* Filter & Sort Controls */}
-                <div className="bg-white rounded-md shadow p-4 mb-6 flex flex-wrap gap-4">
+                <div className="bg-slate-200 border-slate-700 rounded-md shadow p-4 mb-6 flex flex-wrap gap-4">
                     <div className="flex items-center gap-2">
                         <label className="text-sm text-slate-600 font-medium">Filter:</label>
                         <select
@@ -146,11 +146,11 @@ export default function AllTransactions() {
                         </select>
                     </div>
                 </div>
-                <div className="border border-slate-200 shadow focus-within:shadow-md mb-2 duration-200">
-                    <input value={value} className="p-4 font-medium w-full rounded-md outline-none" type="search" placeholder="eg. search with category, transactionId, amount." name="search" id="search" onChange={(e) => setValue(e.target.value)} />
+                <div className="border border-slate-700 rounded-md shadow focus-within:shadow-md mb-2 duration-200">
+                    <input value={value} className="text-slate-200 p-4 font-medium w-full rounded-md outline-none" type="search" placeholder="eg. search with category, transactionId, amount." name="search" id="search" onChange={(e) => setValue(e.target.value)} />
                 </div>
                 {/* Table Head for Desktop */}
-                <div className="hidden sm:grid grid-cols-5 px-4 py-2 text-sm text-gray-500 font-semibold border-b bg-gray-50 rounded-t-md">
+                <div className="hidden sm:grid grid-cols-5 px-4 py-2 text-sm text-slate-200 font-semibold border-slate-700 border bg-slate-900 rounded-t-md">
                     <div>Icon</div>
                     <div>Date</div>
                     <div>Amount</div>
@@ -165,13 +165,13 @@ export default function AllTransactions() {
                             <div
                                 key={txn._id}
                                 onClick={() => handleOpenModal(txn)}
-                                className="bg-white rounded-md border border-slate-200 shadow hover:shadow-md transition cursor-pointer p-4 flex flex-col sm:grid sm:grid-cols-5 sm:items-center gap-y-2 gap-x-4"
+                                className="bg-slate-700 rounded-md border border-slate-900 hover:bg-slate-900 hover:border-slate-500 text-slate-200 shadow hover:shadow-md transition cursor-pointer p-4 flex flex-col sm:grid sm:grid-cols-5 sm:items-center gap-y-2 gap-x-4"
                             >
                                 {/* Icon */}
                                 <div className="max-lg:text-[10px] text-xl text-center sm:text-left">{txn?.icon || "📝"}</div>
 
                                 {/* Date */}
-                                <div className="max-lg:text-[10px] text-sm text-gray-600 text-center sm:text-left">
+                                <div className="max-lg:text-[10px] text-sm text-center sm:text-left">
                                     {moment(txn?.date).format("DD MMM YYYY")}
                                 </div>
 
@@ -185,7 +185,7 @@ export default function AllTransactions() {
                                 </div>
 
                                 {/* Category */}
-                                <div className="max-lg:text-[10px] text-sm text-slate-700 font-medium text-center sm:text-left truncate">
+                                <div className="max-lg:text-[10px] text-sm font-medium text-center sm:text-left truncate">
                                     {txn.category}
                                 </div>
 
@@ -196,7 +196,7 @@ export default function AllTransactions() {
                             </div>
                         ))
                     ) : (
-                        <div className="text-center text-gray-400 py-10 text-sm">No transactions found.</div>
+                        <div className="text-centerpy-10 text-sm">No transactions found.</div>
                     )}
                 </div>
             </div>

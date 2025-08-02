@@ -31,34 +31,48 @@ function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting })
 
     return (
         <div>
-            <h1 className="text-2xl mb-4 font-semibold text-slate-600">Expense Overview: </h1>
-            <div className="relative bg-slate-100 z-30 rounded-2xl shadow-md p-4 sm:p-6 md:p-8 w-full max-w-full mx-auto mb-10 border border-gray-200">
-                <div className="flex justify-between items-center mb-4 w-full">
-                    <h2 className="sm:text-lg font-semibold text-gray-600 mb-4">Expense by Source</h2>
-                    <div className="flex flex-col items-center gap-3">
-                        <span className="text-slate-600 text-sm sm:text-lg font-medium">Total: ₹ {totalAmount?.toLocaleString("en-IN") || 0}</span>
+            <h1 className="text-2xl mb-4 font-semibold text-slate-200">Expense Overview</h1>
+
+            <div className="relative bg-slate-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 w-full mx-auto mb-10 border border-slate-700">
+                {/* Header */}
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="sm:text-lg font-semibold text-slate-200">Expense by Source</h2>
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-slate-200 text-sm sm:text-lg font-medium">
+                            Total: ₹ {totalAmount?.toLocaleString("en-IN") || 0}
+                        </span>
                         <button
                             onClick={openModal}
-                            className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-red-500 hover:text-red-600 border border-gray-200 rounded-lg bg-green-50 hover:bg-red-100 transition-all"
+                            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-rose-500 hover:bg-rose-600 rounded-lg shadow-sm transition"
                         >
-                            {type == "expense" ? "Add Expense" : "Add Income"} <LuArrowRight size={16} />
+                            {type === "expense" ? "Add Expense" : "Add Income"}
+                            <LuArrowRight size={16} />
                         </button>
                     </div>
                 </div>
 
-                {isOpenModal && <Modal type={type} handleSubmit={handleSubmit} setIsOpenModal={closeModal} isSubmitting={isSubmitting} />}
+                {/* Modal */}
+                {isOpenModal && (
+                    <Modal
+                        type={type}
+                        handleSubmit={handleSubmit}
+                        setIsOpenModal={closeModal}
+                        isSubmitting={isSubmitting}
+                    />
+                )}
 
+                {/* Chart */}
                 <div className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={barChartData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
-                            <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-                            <YAxis tick={{ fontSize: 12 }} />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#e5e7eb" />
+                            <YAxis tick={{ fontSize: 12 }} stroke="#e5e7eb" />
                             <Tooltip content={<CustomTooltip />} />
                             <Legend content={<CustomLegend />} />
                             <Bar
                                 dataKey="value"
-                                fill="#b22222"
+                                fill="#f87171" // Tailwind rose-400
                                 radius={[8, 8, 0, 0]}
                                 barSize={100}
                             />
@@ -67,6 +81,7 @@ function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting })
                 </div>
             </div>
         </div>
+
 
     )
 }

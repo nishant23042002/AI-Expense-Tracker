@@ -4,7 +4,6 @@ import SignUp from "./pages/Auth/SignUp"
 import Home from "./pages/dashboard/Home"
 import Expense from "./pages/dashboard/Expense"
 import Income from "./pages/dashboard/Income"
-import SetGoal from "./pages/dashboard/SetGoal"
 import DashboardLayout from "./component/layout/DashboardLayout"
 import Root from "./Root"
 import { ModalProvider } from "./context/ModalProvider"
@@ -40,10 +39,6 @@ const router = createBrowserRouter([
       {
         path: "expense",
         element: <Expense />,
-      },
-      {
-        path: "setgoal",
-        element: <SetGoal />,
       },
       {
         path: "transactions",

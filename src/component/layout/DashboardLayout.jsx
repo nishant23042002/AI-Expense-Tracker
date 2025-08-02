@@ -32,14 +32,12 @@ const routeToMenu = {
     "/dashboard": "Dashboard",
     "/dashboard/income": "Income",
     "/dashboard/expense": "Expense",
-    "/dashboard/setgoal": "Set Goal",
     "/dashboard/transactions": "Transactions",
 };
 
 const DashboardLayout = () => {
     const location = useLocation();
     const user = useSelector((state) => state.loginState.user);
-    // console.log(user);
     const activeMenu = routeToMenu[location.pathname] || "";
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
     const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -49,7 +47,6 @@ const DashboardLayout = () => {
             const isNowDesktop = window.innerWidth >= 768;
             setIsDesktop(isNowDesktop);
             if (isNowDesktop) {
-                // Ensure mobile menu is closed
                 setOpenSideMenu(false);
             }
         };
@@ -58,37 +55,41 @@ const DashboardLayout = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-
     return (
-        <div className="bg-slate-300">
+        <div className="bg-gray-900 min-h-screen">
+            {/* Navbar */}
             <Navbar
                 activeMenu={activeMenu}
                 openSideMenu={openSideMenu}
                 setOpenSideMenu={setOpenSideMenu}
                 user={user}
             />
+
             {user && (
                 <div className="flex">
+                    {/* Sidebar for desktop */}
                     {isDesktop && (
-                        <div>
+                        <div className="bg-slate-900">
                             <SideMenu user={user} activeMenu={activeMenu} />
                         </div>
                     )}
 
+                    {/* Main content area */}
                     <MotionDiv
                         key={location.pathname}
                         variants={pageVariants}
                         initial="initial"
                         animate="animate"
                         exit="exit"
-                        className="grow"
+                        className="grow p-4 sm:p-6 lg:p-8"
                     >
                         <Outlet />
                     </MotionDiv>
                 </div>
             )}
         </div>
-    )
-}
+    );
+};
+
 
 export default DashboardLayout;
