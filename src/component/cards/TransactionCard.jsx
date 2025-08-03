@@ -18,6 +18,7 @@ function TransactionCard({
     aiRecommendation
 }) {
     const [aiTip, setAiTip] = useState(false);
+    const [menu, setMenu] = useState(false);
 
     const confirmDelete = () => {
         Swal.fire({
@@ -34,11 +35,11 @@ function TransactionCard({
             }
         });
     };
- 
+
     return (
         <div draggable className="group my-2 border dark:border-slate-700 border-slate-200 relative flex flex-col justify-center items-center sm:flex-row gap-3 p-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
             {/* Icon */}
-            <div className="w-14 h-14 dark:bg-slate-200 text-xl rounded-full flex justify-center border items-center shadow-sm">
+            <div className="w-14 h-14 dark:bg-slate-200 text-xl rounded-full flex justify-center items-center shadow-sm">
                 <span>{icon}</span>
             </div>
 
@@ -62,28 +63,31 @@ function TransactionCard({
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center justify-center sm:justify-start gap-3 sm:gap-5">
-                    {hideBtn && (
-                        <button
-                            onClick={confirmDelete}
-                            className="p-1.5 text-rose-500 border rounded-full hover:bg-rose-50 transition hidden max-sm:block"
-                        >
-                            <LuTrash size={18} />
-                        </button>
-                    )}
-                    <button
-                        onClick={() => setAiTip((prev) => !prev)}
-                        className="p-1.5 border border-slate-200 rounded-full hover:bg-amber-50 transition"
-                    >
-                        <FcIdea />
-                    </button>
-                </div>
 
                 {/* Amount */}
-                <div className="flex flex-row-reverse justify-center items-center">
-                    <button className="items-center flex justify-end gap-2 text-2xl text-slate-500 cursor-pointer">
+                <div className="relative flex flex-row-reverse justify-center items-center">
+                    <button onClick={() => setMenu((prev) => !prev)} className="items-center flex justify-end gap-2 text-2xl text-slate-500 cursor-pointer">
                         <BsThreeDotsVertical />
                     </button>
+                    {menu &&
+                        <div className="flex flex-col gap-2 z-50 justify-center items-center h-30 w-20 rounded-md absolute top-10 right-6 border border-slate-200 dark:border-slate-700 dark:bg-slate-900 bg-white">
+                            <button
+                                onClick={() => setAiTip((prev) => !prev)}
+                                className="p-1.5 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-amber-50 transition cursor-pointer"
+                            >
+                                <FcIdea />
+                            </button>
+                            {hideBtn && (
+                                <button
+                                    onClick={confirmDelete}
+                                    className="p-1.5 border border-slate-200 rounded-full dark:bg-slate-900 dark:border-slate-700 hover:text-white transition cursor-pointer bg-white hover:bg-red-600 text-red-600"
+                                >
+                                    <LuTrash size={18} />
+                                </button>
+                            )}
+                        </div>
+                    }
+
                     <div
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium ${type === "income"
                             ? "bg-emerald-100 text-emerald-600"

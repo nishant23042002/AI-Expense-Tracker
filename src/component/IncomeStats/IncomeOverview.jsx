@@ -13,16 +13,19 @@ import { LuArrowRight } from "react-icons/lu";
 import Modal from "../utilityComponent/Modal";
 import { useModal } from "../../hooks/useModal.js"
 import { memo, useMemo } from "react";
+import { useTheme } from "../../hooks/useTheme.js";
 
 
 
 
 function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
     const { isOpenModal, openModal, closeModal } = useModal();
-
+    const { theme } = useTheme()
     const totalAmount = useMemo(() => {
         return income.reduce((acc, curr) => acc + curr.value, 0);
     }, [income])
+
+    const isDark = theme == "dark"
     return (
         <div>
             <h1 className="text-2xl mb-4 font-semibold">Income Overview: </h1>
@@ -45,9 +48,9 @@ function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
                 <div className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={income}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
-                            <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#ddd"  />
-                            <YAxis tick={{ fontSize: 12 }} stroke="#ddd" />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke={isDark ? "#e5e7eb" : "#374151"} />
+                            <YAxis tick={{ fontSize: 12 }} stroke={isDark ? "#e5e7eb" : "#374151"} />
                             <Tooltip content={<CustomTooltip />} />
                             <Legend />
                             <Bar

@@ -5,12 +5,13 @@ import CustomLegend from "../utilityComponent/CustomLegend"
 import { useModal } from "../../hooks/useModal.js";
 import Modal from "../utilityComponent/Modal.jsx";
 import { memo, useMemo } from "react";
-
+import {useTheme} from "../../hooks/useTheme.js"
 
 
 
 
 function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting }) {
+    const {theme} = useTheme()
     const categoryTotals = {};
     const { isOpenModal, openModal, closeModal } = useModal();
 
@@ -27,7 +28,7 @@ function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting })
     const totalAmount = useMemo(() => {
         return expenseChartData.reduce((acc, curr) => acc + curr.amount, 0);
     }, [expenseChartData]);
-
+    const isDark = theme == "dark"
 
     return (
         <div>
@@ -66,8 +67,8 @@ function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting })
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={barChartData}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                            <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="#e5e7eb" />
-                            <YAxis tick={{ fontSize: 12 }} stroke="#e5e7eb" />
+                            <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke={isDark ? "#e5e7eb" : "#374151"} />
+                            <YAxis tick={{ fontSize: 12 }} stroke={isDark ? "#e5e7eb" : "#374151"}/>
                             <Tooltip content={<CustomTooltip />} />
                             <Legend content={<CustomLegend />} />
                             <Bar

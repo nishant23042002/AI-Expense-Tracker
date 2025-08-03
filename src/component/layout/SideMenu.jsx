@@ -23,7 +23,7 @@ function SideMenu({ activeMenu, user }) {
     }
     const MotionDiv = motion.div;
     return (
-        <div className="w-64 h-[calc(100vh-77px)] p-5 dark:bg-slate-900 sticky top-[77px] z-20 border-r border-slate-200 dark:border-slate-700">
+        <div className="w-64 h-[calc(100vh-77px)] p-5 bg-white dark:bg-slate-900 sticky top-[77px] z-20 border-r border-b border-slate-200 dark:border-slate-700">
             <div className="flex flex-col text-xl items-center text-slate-800 dark:text-slate-200">
                 <div className="relative flex flex-col justify-center items-center mb-8 text-slate-800 dark:text-slate-200">
                     <img
@@ -51,7 +51,7 @@ function SideMenu({ activeMenu, user }) {
                             </MotionDiv>
                         )}
                     </AnimatePresence>
-                    <h5 className="mt-3 font-semibold">{user?.username?.toUpperCase()}</h5>
+                    <h5 className=" font-semibold">{user?.username?.toUpperCase()}</h5>
                 </div>
 
                 <button

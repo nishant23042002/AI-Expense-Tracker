@@ -62,21 +62,22 @@ function Home() {
                     label="Total Balance"
                     value={dashboardStats?.totalBalance}
                     iconColor="bg-indigo-600 text-white"
-                    bgColor="bg-indigo-50 dark:bg-slate-900"
+                    bgColor="bg-indigo-50 dark:bg-slate-800"
                 />
                 <HomeInfoCard
                     icon={<LuWalletMinimal />}
                     label="Total Income"
                     value={dashboardStats?.totalIncome}
                     iconColor="bg-emerald-500 text-white"
-                    bgColor="bg-emerald-50 dark:bg-slate-900"
+                    bgColor="bg-emerald-50 dark:bg-slate-800"
+                    navigate={() => navigate("/dashboard/income")}
                 />
                 <HomeInfoCard
                     icon={<LuHandCoins />}
                     label="Total Expenses"
                     value={dashboardStats?.totalExpense}
                     iconColor="bg-rose-500 text-white"
-                    bgColor="bg-rose-50 dark:bg-slate-900"
+                    bgColor="bg-rose-50 dark:bg-slate-800"
                     navigate={() => navigate("/dashboard/expense")}
                 />
 

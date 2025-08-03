@@ -8,6 +8,7 @@ import {
 } from "recharts";
 import CustomLegend from "../utilityComponent/CustomLegend";
 import { CustomTooltip } from "../utilityComponent/CustomTooltip";
+import { useTheme } from "../../hooks/useTheme.js";
 
 const COLORS = [
     "#e6194b", // red
@@ -24,9 +25,11 @@ const COLORS = [
 
 
 function Last30DaysExpenses({ pieChartData }) {
-
+    const {theme} = useTheme()
     const sortedPieChartData = [...pieChartData].sort((a, b) => a.name.localeCompare(b.name));
     const totalExpense = sortedPieChartData.reduce((acc, curr) => acc + curr.value, 0);
+
+    const isDark = theme == "dark"
 
     return (
         <div className="lg:w-130 w-full h-[500px] p-6 text-slate-600 dark:text-slate-200 rounded-md hover:shadow-xl duration-200 shadow-md border border-slate-200 dark:border-slate-700">
@@ -47,7 +50,7 @@ function Last30DaysExpenses({ pieChartData }) {
                         fill="#8884d8"
                         labelLine={false}
                         label={({ percent, x, y }) => (
-                            <text x={x} y={y} fill="#e5e7eb" textAnchor="center" dominantBaseline="central" fontSize={12}>
+                            <text x={x} y={y} fill={isDark ? "#e5e7eb" : "#374151"} textAnchor="center" dominantBaseline="central" fontSize={12}>
                                 {(percent * 100).toFixed(0)}%
                             </text>
                         )}

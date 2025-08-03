@@ -10,11 +10,13 @@ import {
 } from "recharts";
 import { CustomTooltip } from "../utilityComponent/CustomTooltip.jsx";
 import { useNavigate } from "react-router-dom";
-
+import { useTheme } from "../../hooks/useTheme.js"
 
 export default function Last60DaysIncome({ simpleAreaChartData }) {
     const navigate = useNavigate()
+    const { theme } = useTheme();
 
+    const isDark = theme == "dark"
     const groupedByName = {};
 
     simpleAreaChartData.forEach((entry) => {
@@ -50,16 +52,16 @@ export default function Last60DaysIncome({ simpleAreaChartData }) {
             </div>
             <ResponsiveContainer className="p-4 text-red-600" width="100%" height="85%">
                 <AreaChart data={totalIncome}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                     <XAxis
                         dataKey="name"
-                        tick={{ fontSize: window.innerWidth <= 800 ? 8 : 10 }}
+                        tick={{ fontSize: window.innerWidth <= 800 ? 10 : 14 }}
                         angle={-10}
-                        textAnchor="end"
-                        stroke="text-red-700"
+                        textAnchor="end"                       
+                        stroke={isDark ? "#e5e7eb" : "#374151"}
                         interval={0}
                     />
-                    <YAxis stroke="#ddd" />
+                    <YAxis stroke={isDark ? "#e5e7eb" : "#374151"} />
                     <Area
                         type="monotone"
                         dataKey="value"
