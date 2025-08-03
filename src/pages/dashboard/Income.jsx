@@ -125,7 +125,7 @@ function Income() {
                 )}
 
 
-                <div className="">
+                <div className="dark:text-slate-200 text-slate-700">
                     <IncomeOverview type="income" income={incomeChartData} handleSubmit={modalType === "income" && handleAddIncome} isSubmitting={isSubmitting} />
                     <AllIncomeTransactions
                         incomeTxnData={incomeTxnData}

@@ -78,7 +78,7 @@ export default function SignUp() {
                 {/* Left Panel */}
                 <div className="w-full md:w-1/2 relative">
                     <img
-                        src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
+                        src="/ET.jpeg"
                         alt="Desert"
                         className="w-full h-full object-cover opacity-90 hover:opacity-100 duration-100"
                     />

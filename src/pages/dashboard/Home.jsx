@@ -56,27 +56,27 @@ function Home() {
     const incomeTxnLength = dashboardStats?.recentTransaction?.filter((item) => item.type == "income").length || 0
     return (
         <div className="my-5 mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-slate-700 dark:text-slate-200">
                 <HomeInfoCard
                     icon={<IoMdCard />}
                     label="Total Balance"
                     value={dashboardStats?.totalBalance}
                     iconColor="bg-indigo-600 text-white"
-                    bgColor="bg-indigo-50"
+                    bgColor="bg-indigo-50 dark:bg-slate-900"
                 />
                 <HomeInfoCard
                     icon={<LuWalletMinimal />}
                     label="Total Income"
                     value={dashboardStats?.totalIncome}
                     iconColor="bg-emerald-500 text-white"
-                    bgColor="bg-emerald-50"
+                    bgColor="bg-emerald-50 dark:bg-slate-900"
                 />
                 <HomeInfoCard
                     icon={<LuHandCoins />}
                     label="Total Expenses"
                     value={dashboardStats?.totalExpense}
                     iconColor="bg-rose-500 text-white"
-                    bgColor="bg-rose-50"
+                    bgColor="bg-rose-50 dark:bg-slate-900"
                     navigate={() => navigate("/dashboard/expense")}
                 />
 

@@ -56,7 +56,7 @@ const DashboardLayout = () => {
     }, []);
 
     return (
-        <div className="bg-gray-900 min-h-screen">
+        <div className="min-h-screen">
             {/* Navbar */}
             <Navbar
                 activeMenu={activeMenu}
@@ -69,7 +69,7 @@ const DashboardLayout = () => {
                 <div className="flex">
                     {/* Sidebar for desktop */}
                     {isDesktop && (
-                        <div className="bg-slate-900">
+                        <div>
                             <SideMenu user={user} activeMenu={activeMenu} />
                         </div>
                     )}
@@ -81,7 +81,7 @@ const DashboardLayout = () => {
                         initial="initial"
                         animate="animate"
                         exit="exit"
-                        className="grow p-4 sm:p-6 lg:p-8"
+                        className="grow p-4 sm:p-6 lg:p-8 dark:bg-slate-900 dark:text-slate-200"
                     >
                         <Outlet />
                     </MotionDiv>

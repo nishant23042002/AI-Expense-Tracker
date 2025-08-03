@@ -23,11 +23,11 @@ function SideMenu({ activeMenu, user }) {
     }
     const MotionDiv = motion.div;
     return (
-        <div className="w-64 h-[calc(100vh-61px)] text-white p-5 sticky top-[61px] z-20">
-            <div className="flex flex-col items-center">
-                <div className="relative flex flex-col justify-center items-center mb-8">
+        <div className="w-64 h-[calc(100vh-77px)] p-5 dark:bg-slate-900 sticky top-[77px] z-20 border-r border-slate-200 dark:border-slate-700">
+            <div className="flex flex-col text-xl items-center text-slate-800 dark:text-slate-200">
+                <div className="relative flex flex-col justify-center items-center mb-8 text-slate-800 dark:text-slate-200">
                     <img
-                        className="relative w-40 h-40 border-4 border-slate-700 object-contain bg-slate-800 rounded-full cursor-pointer shadow-lg"
+                        className="relative w-40 h-40 border-4 border-white dark:border-slate-700 object-contain rounded-full cursor-pointer shadow-lg"
                         src={user?.profilePic_URL}
                         alt="profile-picture"
                         onClick={() => setShowPopup(true)}
@@ -51,11 +51,11 @@ function SideMenu({ activeMenu, user }) {
                             </MotionDiv>
                         )}
                     </AnimatePresence>
-                    <h5 className="mt-3 text-white font-semibold">{user?.username?.toUpperCase()}</h5>
+                    <h5 className="mt-3 font-semibold">{user?.username?.toUpperCase()}</h5>
                 </div>
 
                 <button
-                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Dashboard" ? "bg-indigo-600 text-white" : "text-slate-300 hover:bg-indigo-500 hover:text-white"
+                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Dashboard" ? "bg-indigo-600 text-white" : "hover:bg-indigo-500 hover:text-white"
                         }`}
                     onClick={() => navigate("/dashboard")}
                 >
@@ -63,7 +63,7 @@ function SideMenu({ activeMenu, user }) {
                 </button>
 
                 <button
-                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Income" ? "bg-emerald-500 text-white" : "text-slate-300 hover:bg-emerald-400 hover:text-white"
+                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Income" ? "bg-emerald-500 text-white" : "hover:bg-emerald-400 hover:text-white"
                         }`}
                     onClick={() => navigate("/dashboard/income")}
                 >
@@ -71,7 +71,7 @@ function SideMenu({ activeMenu, user }) {
                 </button>
 
                 <button
-                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Expense" ? "bg-rose-500 text-white" : "text-slate-300 hover:bg-rose-400 hover:text-white"
+                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Expense" ? "bg-rose-500 text-white" : "hover:bg-rose-400 hover:text-white"
                         }`}
                     onClick={() => navigate("/dashboard/expense")}
                 >
@@ -79,7 +79,7 @@ function SideMenu({ activeMenu, user }) {
                 </button>
 
                 <button
-                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Transactions" ? "bg-sky-500 text-white" : "text-slate-300 hover:bg-sky-400 hover:text-white"
+                    className={`w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium transition ${activeMenu === "Transactions" ? "bg-sky-500 text-white" : "hover:bg-sky-400 hover:text-white"
                         }`}
                     onClick={() => navigate("/dashboard/transactions")}
                 >
@@ -87,7 +87,7 @@ function SideMenu({ activeMenu, user }) {
                 </button>
 
                 <button
-                    className="w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition"
+                    className="w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium hover:bg-slate-700 hover:text-white transition"
                     onClick={handleLogOut}
                 >
                     <LuLogOut /> Logout

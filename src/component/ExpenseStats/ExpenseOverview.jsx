@@ -31,19 +31,19 @@ function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting })
 
     return (
         <div>
-            <h1 className="text-2xl mb-4 font-semibold text-slate-200">Expense Overview</h1>
+            <h1 className="text-2xl text-slate-700 dark:text-slate-200 mb-4 font-semibold">Expense Overview</h1>
 
-            <div className="relative bg-slate-900 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 w-full mx-auto mb-10 border border-slate-700">
+            <div className="relative text-slate-700 dark:text-slate-200 rounded-md shadow-sm hover:shadow-md transition-all duration-300 p-6 w-full mx-auto mb-10 border border-slate-200 dark:border-slate-700">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="sm:text-lg font-semibold text-slate-200">Expense by Source</h2>
+                    <h2 className="sm:text-lg font-semibold">Expense by Source</h2>
                     <div className="flex flex-col items-center gap-2">
-                        <span className="text-slate-200 text-sm sm:text-lg font-medium">
+                        <span className="text-sm sm:text-lg font-medium">
                             Total: ₹ {totalAmount?.toLocaleString("en-IN") || 0}
                         </span>
                         <button
                             onClick={openModal}
-                            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-rose-500 hover:bg-rose-600 rounded-lg shadow-sm transition"
+                            className="inline-flex items-center cursor-pointer gap-2 px-4 py-2 text-sm font-medium text-white bg-rose-500 hover:bg-rose-600 rounded-lg shadow-sm transition"
                         >
                             {type === "expense" ? "Add Expense" : "Add Income"}
                             <LuArrowRight size={16} />

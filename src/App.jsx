@@ -52,7 +52,7 @@ export default function App() {
   return (
     <ModalProvider>
       <RouterProvider router={router}>
-
+          
       </RouterProvider>
     </ModalProvider>
   )

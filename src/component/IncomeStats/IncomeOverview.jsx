@@ -24,16 +24,16 @@ function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
         return income.reduce((acc, curr) => acc + curr.value, 0);
     }, [income])
     return (
-        <div className="bg-slate-900">
-            <h1 className="text-2xl mb-4 font-semibold text-slate-200">Income Overview: </h1>
-            <div className="relative bg-slate-900 z-30 rounded-2xl shadow-md p-4 sm:p-6 md:p-8 w-full max-w-full mx-auto mb-10 border border-slate-700">
+        <div>
+            <h1 className="text-2xl mb-4 font-semibold">Income Overview: </h1>
+            <div className="relative z-30 rounded-md shadow-md p-4 sm:p-6 md:p-8 w-full max-w-full mx-auto mb-10 border dark:border-slate-700 border-slate-200">
                 <div className="flex justify-between items-center mb-4 w-full">
-                    <h2 className="text-lg font-semibold text-gray-200 mb-4">Income by Source</h2>
+                    <h2 className="text-lg font-semibold mb-4">Income by Source</h2>
                     <div className="flex flex-col items-center gap-3">
-                        <span className="text-slate-200 font-medium">Total: ₹ {totalAmount.toLocaleString("en-IN") || 0}</span>
+                        <span className="font-medium">Total: ₹ {totalAmount.toLocaleString("en-IN") || 0}</span>
                         <button
                             onClick={openModal}
-                            className="inline-flex font-semibold items-center gap-2 px-4 py-2 text-sm cursor-pointer  text-green-500 hover:text-green-600 border border-slate-700 rounded-lg bg-slate-900 hover:bg-green-100 transition-all"
+                            className="inline-flex items-center cursor-pointer gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-lg shadow-sm transition"
                         >
                             {type == "income" ? "Add Income" : "Add Expense"} <LuArrowRight size={16} />
                         </button>

@@ -93,21 +93,21 @@ export default function AllTransactions() {
 
 
     return (
-        <div className="min-h-screen bg-slate-900 border border-slate-700 rounded-xl p-4 sm:p-6 md:p-8">
+        <div className="min-h-screeborder border border-slate-200 text-slate-700 dark:text-slate-200 dark:border-slate-700 rounded-md p-4 sm:p-6 md:p-8">
             <div className=" mx-auto">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-200 mb-2">📜 Transaction History</h1><span className="text-blue-600 font-bold text-md">Total Transactions made : {txnData?.length || 0}</span>
+                    <h1 className="text-2xl sm:text-3xl font-bold mb-2 max-sm:text-[12px]">📜 Transaction History</h1><span className="max-sm:hidden text-blue-600 font-bold max-sm:text-[10px] text-md">Total Transactions made : {txnData?.length || 0}</span><span className="sm:hidden text-blue-600 font-bold text-sm">Total: {txnData?.length || 0}</span>
                 </div>
-                <p className="text-slate-200 mb-6">Click a transaction to view more details.</p>
+                <p className="mb-6 max-sm:text-sm">Click a transaction to view more details.</p>
 
                 {/* Filter & Sort Controls */}
-                <div className="bg-slate-200 border-slate-700 rounded-md shadow p-4 mb-6 flex flex-wrap gap-4">
+                <div className="border border-slate-200 dark:border-slate-700 rounded-md shadow p-4 mb-6 flex flex-wrap gap-4">
                     <div className="flex items-center gap-2">
-                        <label className="text-sm text-slate-600 font-medium">Filter:</label>
+                        <label className="text-sm font-medium">Filter:</label>
                         <select
                             value={filterType}
                             onChange={(e) => setFilterType(e.target.value)}
-                            className="p-1.5 border border-gray-300 rounded-md text-sm"
+                            className="p-1.5 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none rounded-md text-sm"
                         >
                             <option value="all">All</option>
                             <option value="income">Income</option>
@@ -115,29 +115,29 @@ export default function AllTransactions() {
                         </select>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                    <div className="flex flex-wrap items-cente gap-2 text-sm">
                         <label>From:</label>
                         <input
                             type="date"
                             value={fromDate}
                             onChange={(e) => setFromDate(e.target.value)}
-                            className="border border-gray-300 rounded px-2 py-1 text-sm"
+                            className="border border-slate-200 dark:border-slate-700 rounded px-2 py-1 text-sm"
                         />
                         <label>To:</label>
                         <input
                             type="date"
                             value={toDate}
                             onChange={(e) => setToDate(e.target.value)}
-                            className="border border-gray-300 rounded px-2 py-1 text-sm"
+                            className="border border-slate-200 dark:border-slate-700 rounded  px-2 py-1 text-sm"
                         />
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <label className="text-sm text-slate-600 font-medium">Sort by:</label>
+                        <label className="text-sm font-medium">Sort by:</label>
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value)}
-                            className="p-1.5 border border-gray-300 rounded-md text-sm"
+                            className="p-1.5 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none rounded-md text-sm"
                         >
                             <option value="date-desc">Date (Newest)</option>
                             <option value="date-asc">Date (Oldest)</option>
@@ -146,11 +146,11 @@ export default function AllTransactions() {
                         </select>
                     </div>
                 </div>
-                <div className="border border-slate-700 rounded-md shadow focus-within:shadow-md mb-2 duration-200">
-                    <input value={value} className="text-slate-200 p-4 font-medium w-full rounded-md outline-none" type="search" placeholder="eg. search with category, transactionId, amount." name="search" id="search" onChange={(e) => setValue(e.target.value)} />
+                <div className="border border-slate-200 dark:border-slate-700 rounded-md shadow focus-within:shadow-md mb-2 duration-200">
+                    <input value={value} className="p-4 font-medium w-full rounded-md outline-none" type="search" placeholder="eg. search with category, transactionId, amount." name="search" id="search" onChange={(e) => setValue(e.target.value)} />
                 </div>
                 {/* Table Head for Desktop */}
-                <div className="hidden sm:grid grid-cols-5 px-4 py-2 text-sm text-slate-200 font-semibold border-slate-700 border bg-slate-900 rounded-t-md">
+                <div className="hidden sm:grid grid-cols-5 px-4 py-2 text-sm font-semibold dark:border-slate-700 border border-slate-200 rounded-t-md">
                     <div>Icon</div>
                     <div>Date</div>
                     <div>Amount</div>
@@ -165,7 +165,7 @@ export default function AllTransactions() {
                             <div
                                 key={txn._id}
                                 onClick={() => handleOpenModal(txn)}
-                                className="bg-slate-700 rounded-md border border-slate-900 hover:bg-slate-900 hover:border-slate-500 text-slate-200 shadow hover:shadow-md transition cursor-pointer p-4 flex flex-col sm:grid sm:grid-cols-5 sm:items-center gap-y-2 gap-x-4"
+                                className="rounded-md dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-slate-500 shadow hover:shadow-md transition cursor-pointer p-4 flex flex-col sm:grid sm:grid-cols-5 sm:items-center gap-y-2 gap-x-4"
                             >
                                 {/* Icon */}
                                 <div className="max-lg:text-[10px] text-xl text-center sm:text-left">{txn?.icon || "📝"}</div>

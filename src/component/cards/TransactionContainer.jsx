@@ -13,11 +13,11 @@ export default function TransactionContainer({
     hideBtn
 }) {
     return (
-        <div className="xl:w-160 w-full bg-slate-900 p-6 rounded-xl border border-slate-700 shadow-sm hover:shadow-md transition-all duration-300">
+        <div className="xl:w-160 w-full p-6 border text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 rounded-md shadow-sm hover:shadow-md transition-all duration-300">
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
-                <h5 className="sm:text-lg font-semibold text-slate-200">{title}</h5>
-                <p className="text-sm text-slate-200">{length} items</p>
+                <h5 className="sm:text-lg font-semibold">{title}</h5>
+                <p className="text-sm">{length} items</p>
             </div>
 
             {/* See More Button */}
@@ -25,7 +25,7 @@ export default function TransactionContainer({
                 <div className="flex justify-end">
                     <button
                         onClick={openTransaction}
-                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 border border-slate-700 rounded-lg bg-slate-900 hover:bg-indigo-100 transition"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 hover:text-indigo-700 border cursor-pointer rounded-lg hover:bg-indigo-100 dark:hover:bg-slate-800 transition"
                     >
                         See more <LuArrowRight size={16} />
                     </button>
@@ -48,6 +48,7 @@ export default function TransactionContainer({
                         hideBtn={hideBtn}
                     />
                 ))}
+
             </div>
         </div>
     );

@@ -3,6 +3,8 @@ import SideMenu from "./SideMenu"
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useTheme } from "../../hooks/useTheme.js"
+
 
 const slideVariants = {
     initial: {
@@ -37,6 +39,7 @@ export default function Navbar({
     user
 }) {
     const location = useLocation(); // 👈 track current route
+    const { theme, toggleTheme } = useTheme();
 
     // 👇 Close SideMenu when route changes
     useEffect(() => {
@@ -45,20 +48,27 @@ export default function Navbar({
     const MotionDiv = motion.div
 
     return (
-        <div className="flex gap-5 bg-slate-900 text-slate-100 shadow-sm py-4 px-7 sticky top-0 z-50">
+        <div className="flex justify-between items-center gap-5 text-xl bg-white shadow-sm py-4 px-7 sticky text-slate-800 dark:bg-slate-900 dark:text-slate-200 top-0 z-50 border-b border-slate-200 dark:border-slate-700">
             <button
-                className="hidden max-md:block text-slate-300"
+                className="hidden max-md:block"
                 onClick={() => setOpenSideMenu(!openSideMenu)}
             >
                 {openSideMenu ? <HiOutlineX className="text-2xl" /> : <HiOutlineMenu className="text-2xl" />}
             </button>
-            <h2 className="text-lg font-semibold text-slate-300">Expense Tracker</h2>
+            <h2 className="font-semibold">Expense Tracker</h2>
+            <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 transition-all duration-300"
+            >
+                {theme === "dark" ? "🌙" : "☀️"}
+            </button>
+
 
             <AnimatePresence>
                 {openSideMenu && (
                     <MotionDiv
                         key="mobile-sidemenu"
-                        className="fixed top-[61px] left-0 w-64 h-[calc(100vh-62px)] bg-slate-900 z-40 shadow-lg"
+                        className="fixed top-[61px] left-0 w-64 h-[calc(100vh-62px)] z-40 shadow-lg"
                         variants={slideVariants}
                         initial="initial"
                         animate="animate"

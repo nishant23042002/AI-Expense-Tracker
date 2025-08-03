@@ -34,12 +34,12 @@ function TransactionCard({
             }
         });
     };
-
+ 
     return (
-        <div className="group my-2 border border-slate-700 bg-gray-800 relative flex flex-col sm:flex-row gap-3 p-3 rounded-lg hover:bg-slate-900 shadow-sm hover:shadow-md transition-all duration-200">
+        <div draggable className="group my-2 border dark:border-slate-700 border-slate-200 relative flex flex-col justify-center items-center sm:flex-row gap-3 p-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
             {/* Icon */}
-            <div className="w-14 h-14 text-xl bg-slate-900 rounded-full text-slate-600 flex justify-center items-center shadow-sm">
-                {icon}
+            <div className="w-14 h-14 dark:bg-slate-200 text-xl rounded-full flex justify-center border items-center shadow-sm">
+                <span>{icon}</span>
             </div>
 
             {/* AI Tip */}
@@ -55,7 +55,7 @@ function TransactionCard({
             {/* Main Details */}
             <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between w-full gap-2">
                 {/* Title + Date */}
-                <div className="flex flex-col text-center text-slate-300 sm:text-left sm:w-1/3">
+                <div className="flex flex-col text-center sm:text-left sm:w-1/3">
                     <p className="text-sm sm:text-base font-semibold truncate">{title}</p>
                     <p className="text-xs mt-1">{date}</p>
                     <span className="text-xs">{txnTime}</span>
@@ -66,7 +66,7 @@ function TransactionCard({
                     {hideBtn && (
                         <button
                             onClick={confirmDelete}
-                            className="p-1.5 text-rose-500 border border-slate-200 rounded-full hover:bg-rose-50 transition opacity-0 group-hover:opacity-100"
+                            className="p-1.5 text-rose-500 border rounded-full hover:bg-rose-50 transition hidden max-sm:block"
                         >
                             <LuTrash size={18} />
                         </button>
@@ -80,14 +80,14 @@ function TransactionCard({
                 </div>
 
                 {/* Amount */}
-                <div className="flex flex-row-reverse justify-between items-center">
+                <div className="flex flex-row-reverse justify-center items-center">
                     <button className="items-center flex justify-end gap-2 text-2xl text-slate-500 cursor-pointer">
                         <BsThreeDotsVertical />
                     </button>
                     <div
                         className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium ${type === "income"
-                                ? "bg-emerald-100 text-emerald-600"
-                                : "bg-rose-100 text-rose-500"
+                            ? "bg-emerald-100 text-emerald-600"
+                            : "bg-rose-100 text-rose-500"
                             }`}
                     >
                         {type === "income" ? `+ ₹${amount}` : `- ₹${amount}`}

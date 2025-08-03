@@ -25,13 +25,13 @@ function TransactionModal({ isOpen, onClose, transaction, onEdit, onDelete }) {
         <AnimatePresence>
             {isOpen && (
                 <MotionDiv
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                 >
                     <MotionDiv
-                        className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-[95%] sm:w-[500px] max-h-[70vh] overflow-y-auto relative"
+                        className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-2xl max-h-[80vh] overflow-y-auto relative"
                         initial={{ scale: 0.95, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.95, opacity: 0 }}
