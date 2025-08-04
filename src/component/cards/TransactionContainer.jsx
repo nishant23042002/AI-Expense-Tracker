@@ -1,6 +1,8 @@
 import { LuArrowRight, LuUtensils } from "react-icons/lu";
 import TransactionCard from "./TransactionCard";
 import moment from "moment"
+import { useCountAnimation } from "../../hooks/useCountAnimation";
+import { useEffect } from "react";
 
 export default function TransactionContainer({
     transactions = [],
@@ -12,12 +14,19 @@ export default function TransactionContainer({
     handleDeleteIncome,
     hideBtn
 }) {
+    const { counts, animateCount } = useCountAnimation();
+
+    useEffect(() => {
+        animateCount(title, length)
+    }, [])
+
+    const lengths = counts[title];
     return (
         <div className="xl:w-160 w-full p-6 border text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 rounded-md shadow-sm hover:shadow-md transition-all duration-300">
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
                 <h5 className="sm:text-lg font-semibold">{title}</h5>
-                <p className="text-sm">{length} items</p>
+                <p className="text-sm">{lengths} items</p>
             </div>
 
             {/* See More Button */}
@@ -38,7 +47,7 @@ export default function TransactionContainer({
                     <TransactionCard
                         key={trxn._id}
                         title={trxn?.source || trxn?.category || "Others"}
-                        icon={trxn?.icon}
+                        icon={trxn?.icon || "🔄"}
                         date={moment(trxn?.[dateKey]).format("Do MMM YYYY")}
                         type={trxn?.type}
                         amount={trxn?.amount}

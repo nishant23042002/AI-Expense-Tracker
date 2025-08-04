@@ -21,9 +21,14 @@ import { useTheme } from "../../hooks/useTheme.js";
 function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
     const { isOpenModal, openModal, closeModal } = useModal();
     const { theme } = useTheme()
+
+
+
     const totalAmount = useMemo(() => {
         return income.reduce((acc, curr) => acc + curr.value, 0);
     }, [income])
+
+
 
     const isDark = theme == "dark"
     return (
@@ -33,7 +38,7 @@ function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
                 <div className="flex justify-between items-center mb-4 w-full">
                     <h2 className="text-lg font-semibold mb-4">Income by Source</h2>
                     <div className="flex flex-col items-center gap-3">
-                        <span className="font-medium">Total: ₹ {totalAmount.toLocaleString("en-IN") || 0}</span>
+                        <span className="font-medium">Total: ₹ {totalAmount?.toLocaleString("en-IN") || 0}</span>
                         <button
                             onClick={openModal}
                             className="inline-flex items-center cursor-pointer gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-lg shadow-sm transition"

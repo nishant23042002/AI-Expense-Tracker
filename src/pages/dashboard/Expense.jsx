@@ -52,6 +52,7 @@ function Expense() {
             setIsSubmitting(true);
             const res = await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, payload);
             toast.success(res?.data?.message || "Expense added");
+            await fetchExpenseData();
             closeModal();
         } catch (err) {
             console.error(err.response?.data || err.message);

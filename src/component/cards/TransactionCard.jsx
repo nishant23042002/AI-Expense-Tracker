@@ -1,9 +1,9 @@
 import { LuTrash, LuTrendingDown, LuTrendingUp } from "react-icons/lu";
 import { FcIdea } from "react-icons/fc";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Swal from 'sweetalert2';
-
+import { useCountAnimation } from "../../hooks/useCountAnimation.js"
 
 
 function TransactionCard({
@@ -17,6 +17,7 @@ function TransactionCard({
     handleDeleteIncome,
     aiRecommendation
 }) {
+    const { counts, animateCount } = useCountAnimation()
     const [aiTip, setAiTip] = useState(false);
     const [menu, setMenu] = useState(false);
 
@@ -35,6 +36,12 @@ function TransactionCard({
             }
         });
     };
+
+    useEffect(() => {
+        animateCount(title, amount)
+    }, [title, amount])
+
+    const amounts = counts[title];
 
     return (
         <div draggable className="group my-2 border dark:border-slate-700 border-slate-200 relative flex flex-col justify-center items-center sm:flex-row gap-3 p-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
@@ -94,7 +101,7 @@ function TransactionCard({
                             : "bg-rose-100 text-rose-500"
                             }`}
                     >
-                        {type === "income" ? `+ ₹${amount}` : `- ₹${amount}`}
+                        {type === "income" ? `+ ₹${amounts}` : `- ₹${amounts}`}
                         {type === "income" ? <LuTrendingUp /> : <LuTrendingDown />}
                     </div>
                 </div>
