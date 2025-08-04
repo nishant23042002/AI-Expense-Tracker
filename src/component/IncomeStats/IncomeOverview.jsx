@@ -18,8 +18,8 @@ import { useTheme } from "../../hooks/useTheme.js";
 
 
 
-function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
-    const { isOpenModal, openModal, closeModal } = useModal();
+function IncomeOverview({ income, handleSubmit, isSubmitting }) {
+    const { isOpenModal, openModal, closeModal, modalType } = useModal();
     const { theme } = useTheme()
 
 
@@ -40,15 +40,15 @@ function IncomeOverview({ type, income, handleSubmit, isSubmitting }) {
                     <div className="flex flex-col items-center gap-3">
                         <span className="font-medium">Total: ₹ {totalAmount?.toLocaleString("en-IN") || 0}</span>
                         <button
-                            onClick={openModal}
+                            onClick={() => openModal("income")}
                             className="inline-flex items-center cursor-pointer gap-2 px-4 py-2 text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-lg shadow-sm transition"
                         >
-                            {type == "income" ? "Add Income" : "Add Expense"} <LuArrowRight size={16} />
+                            Add Income <LuArrowRight size={16} />
                         </button>
                     </div>
                 </div>
 
-                {isOpenModal && <Modal type={type} handleSubmit={handleSubmit} setIsOpenModal={closeModal} isSubmitting={isSubmitting} />}
+                {isOpenModal && <Modal type={modalType} handleSubmit={handleSubmit} setIsOpenModal={closeModal} isSubmitting={isSubmitting} />}
 
                 <div className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px]">
                     <ResponsiveContainer width="100%" height="100%">

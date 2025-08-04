@@ -13,7 +13,6 @@ import { useModal } from "../../hooks/useModal.js";
 function Expense() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [expenseTxnData, setExpenseTxnData] = useState([]);
-    const [modalType, setModalType] = useState("expense");
     const { closeModal } = useModal()
 
     const fetchExpenseData = useCallback(async () => {
@@ -32,7 +31,6 @@ function Expense() {
     }, []);
 
     const handleAddExpense = async (expense) => {
-        setModalType("expense")
         const { source, amount, icon, receivedDate } = expense;
 
         // Rename source -> title, receivedDate -> spentDate
@@ -95,9 +93,8 @@ function Expense() {
             />
             <div className="grid grid-cols-1 gap-6">
                 <ExpenseOverview
-                    type="expense"
                     expenseChartData={expenseTxnData}
-                    handleSubmit={modalType === "expense" && handleAddExpense}
+                    handleSubmit={handleAddExpense}
                     isSubmitting={isSubmitting}
                 />
                 <AllExpenseTransactions

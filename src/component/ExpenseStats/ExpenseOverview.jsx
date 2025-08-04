@@ -10,10 +10,10 @@ import {useTheme} from "../../hooks/useTheme.js"
 
 
 
-function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting }) {
+function ExpenseOverview({ expenseChartData, handleSubmit, isSubmitting }) {
     const {theme} = useTheme()
     const categoryTotals = {};
-    const { isOpenModal, openModal, closeModal } = useModal();
+    const { isOpenModal, openModal, closeModal, modalType } = useModal();
 
     expenseChartData.forEach((txn) => {
         const category = txn.category || "Others";
@@ -43,10 +43,10 @@ function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting })
                             Total: ₹ {totalAmount?.toLocaleString("en-IN") || 0}
                         </span>
                         <button
-                            onClick={openModal}
+                            onClick={() => openModal("expense")}
                             className="inline-flex items-center cursor-pointer gap-2 px-4 py-2 text-sm font-medium text-white bg-rose-500 hover:bg-rose-600 rounded-lg shadow-sm transition"
                         >
-                            {type === "expense" ? "Add Expense" : "Add Income"}
+                            Add Expense
                             <LuArrowRight size={16} />
                         </button>
                     </div>
@@ -54,8 +54,8 @@ function ExpenseOverview({ type, expenseChartData, handleSubmit, isSubmitting })
 
                 {/* Modal */}
                 {isOpenModal && (
-                    <Modal
-                        type={type}
+                    <Modal        
+                        type={modalType}             
                         handleSubmit={handleSubmit}
                         setIsOpenModal={closeModal}
                         isSubmitting={isSubmitting}

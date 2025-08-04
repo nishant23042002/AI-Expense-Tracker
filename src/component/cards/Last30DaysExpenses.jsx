@@ -35,7 +35,7 @@ function Last30DaysExpenses({ pieChartData }) {
         <div className="lg:w-130 w-full h-[500px] p-6 text-slate-600 dark:text-slate-200 rounded-md hover:shadow-xl duration-200 shadow-md border border-slate-200 dark:border-slate-700">
             <div className="flex justify-between items-center w-full">
                 <h2 className="sm:text-xl font-semibold">Expenses Last 30 Days</h2>
-                <span className="text-smfont-medium">Total Spent: ₹{totalExpense?.toLocaleString("en-IN")}</span>
+                <span className="text-sm font-bold text-slate-500 dark:text-slate-200">Total Spent : ₹{totalExpense?.toLocaleString("en-IN")}</span>
             </div>
 
             <ResponsiveContainer width="100%" height={380}>

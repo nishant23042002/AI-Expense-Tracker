@@ -12,9 +12,11 @@ import { CustomTooltip } from "../utilityComponent/CustomTooltip.jsx";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../hooks/useTheme.js"
 
+
 export default function Last60DaysIncome({ simpleAreaChartData }) {
     const navigate = useNavigate()
     const { theme } = useTheme();
+
 
     const isDark = theme == "dark"
     const groupedByName = {};
@@ -57,7 +59,7 @@ export default function Last60DaysIncome({ simpleAreaChartData }) {
                         dataKey="name"
                         tick={{ fontSize: window.innerWidth <= 800 ? 10 : 14 }}
                         angle={-10}
-                        textAnchor="end"                       
+                        textAnchor="end"
                         stroke={isDark ? "#e5e7eb" : "#374151"}
                         interval={0}
                     />

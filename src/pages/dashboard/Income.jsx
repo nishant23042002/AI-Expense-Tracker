@@ -12,8 +12,8 @@ function Income() {
     const [incomeTxnData, setIncomeTxnData] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
-    const [modalType, setModalType] = useState("income");
     const { closeModal } = useModal()
+    
     const months = [
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -48,7 +48,6 @@ function Income() {
     }, []);
 
     const handleAddIncome = async (income) => {
-        setModalType("income")
         let { source, amount, icon, receivedDate } = income;
         if (!source.trim()) {
             toast.error("Source is required");
@@ -126,7 +125,7 @@ function Income() {
 
 
                 <div className="dark:text-slate-200 text-slate-700">
-                    <IncomeOverview type="income" income={incomeChartData} handleSubmit={modalType === "income" && handleAddIncome} isSubmitting={isSubmitting} />
+                    <IncomeOverview income={incomeChartData} handleSubmit={handleAddIncome} isSubmitting={isSubmitting} />
                     <AllIncomeTransactions
                         incomeTxnData={incomeTxnData}
                         handleDeleteIncome={handleDeleteIncome}

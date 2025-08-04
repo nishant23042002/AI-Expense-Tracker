@@ -11,6 +11,7 @@ import moment from "moment";
 
 
 
+
 function useDebounce(value, delay = 300) {
     const [debouncedValue, setDebouncedValue] = useState(value);
     useEffect(() => {
@@ -53,9 +54,53 @@ export default function AllTransactions() {
         }
     };
 
+    const handleDelete = async (id, type) => {
+        try {
+            const deleteUrl =
+                type === "income"
+                    ? `${API_PATHS.INCOME.DEL_INCOME}/${id}`
+                    : `${API_PATHS.EXPENSE.DEL_EXPENSE}/${id}`;
+
+            await axiosInstance.delete(deleteUrl);
+
+            // Remove deleted transaction from UI immediately
+            setTxnData((prev) => prev.filter((txn) => txn._id !== id));
+
+            toast.success(`${type} deleted successfully`);
+        } catch (error) {
+            toast.error(error.response?.data?.message || `Failed to delete ${type}`);
+        }
+    };
+
+    const handleEdit = async (id, type, updatedData) => {
+        try {
+            const editUrl =
+                type === "income"
+                    ? `${API_PATHS.INCOME.EDIT_INCOME}/${id}`
+                    : `${API_PATHS.EXPENSE.EDIT_EXPENSE}/${id}`;
+
+            const res = await axiosInstance.put(editUrl, updatedData);
+
+            // Update UI instantly
+            setTxnData((prev) =>
+                prev.map((txn) =>
+                    txn._id === id ? { ...txn, ...res.data.data } : txn
+                )
+            );
+        } catch (error) {
+            toast.error(error.response?.data?.message || `Failed to update ${type}`);
+        }
+    };
+
+
+
+
+
+
+
     useEffect(() => {
         fetchTransactionsData();
-    }, []);
+    }, [txnData]);
 
     const filteredTransactions = useMemo(() => {
         const lowerCaseValue = debouncedSearch.trim().toLowerCase();
@@ -165,7 +210,7 @@ export default function AllTransactions() {
                             <div
                                 key={txn._id}
                                 onClick={() => handleOpenModal(txn)}
-                                className="rounded-md dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-slate-500 shadow hover:shadow-md transition cursor-pointer p-4 flex flex-col sm:grid sm:grid-cols-5 sm:items-center gap-y-2 gap-x-4"
+                                className="rounded-md dark:hover:bg-slate-900 border dark:bg-slate-700 border-slate-200 dark:border-slate-700 hover:border-slate-500 shadow hover:shadow-md transition cursor-pointer p-4 flex flex-col sm:grid sm:grid-cols-5 sm:items-center gap-y-2 gap-x-4"
                             >
                                 {/* Icon */}
                                 <div className="max-lg:text-[10px] text-xl text-center sm:text-left">{txn?.icon || "📝"}</div>
@@ -206,7 +251,9 @@ export default function AllTransactions() {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 transaction={selectedTransaction}
-                onEdit={(txn) => console.log("Edit:", txn)}
+                onEdit={handleEdit}
+                onDelete={(id) => handleDelete(id, selectedTransaction.type)}
+                fetchTransactionsData={fetchTransactionsData}
             />
         </div>
     );
