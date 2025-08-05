@@ -20,11 +20,7 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const payload = {
-            email,
-            password,
-            isAgree
-        };
+        const payload = { email, password, isAgree };
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
@@ -41,30 +37,35 @@ export default function Login() {
             setMessage("You must agree to the Terms & Conditions.");
             return;
         }
-        try {
-            const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, payload);
-            const data = res.data;
-            console.log(data);
-            dispatch(
-                loginUser({
-                    user: data.user,
-                    token: data.token,
-                })
-            );
-            const token = localStorage.getItem("token")
 
-            if (token) {
-                setTimeout(() => {
-                    navigate("/dashboard");
-                }, 2000);
-            }
+        try {
+            const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, payload, {
+                withCredentials: true,
+            });
+
+            const data = res.data;
+
+            // Save in localStorage first
+            localStorage.setItem("accessToken", data.accessToken);
+            localStorage.setItem("refreshToken", data.refreshToken);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            // Then dispatch to Redux
+            await dispatch(loginUser({
+                user: data.user,
+                accessToken: data.accessToken,
+                refreshToken: data.refreshToken
+            }));
+
+            navigate("/dashboard");
             setMessage(data.message || "Login successful.");
         } catch (err) {
-            console.error("Login error:", err);
-            const errorMsg = err.response?.data?.message || "Something went wrong. Please try again.";
-            setMessage(errorMsg);
+            console.error("Login error: ", err);
+            const errMsg = err.response?.data?.error || "Something went wrong. Try again.";
+            setMessage(errMsg);
         }
     };
+
 
     return (
         <div className={`${!isDark ? "min-h-screen flex items-center justify-center bg-slate-200 px-4 py-10" : "min-h-screen flex items-center justify-center bg-slate-900 px-4 py-10"}`}>

@@ -1,16 +1,13 @@
-// src/components/ProtectedRoute.jsx
-import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
-function ProtectedRoute({ children }) {
-    const user = useSelector((state) => state?.auth?.user);
-    const token = useSelector((state) => state?.auth?.token) || localStorage.getItem("token");
+export default function ProtectedRoute({ children }) {
+    const user = useSelector((state) => state.loginState?.user);
+    const accessToken = useSelector((state) => state.loginState?.accessToken);
 
-    // If not logged in, redirect to login
-    if (!user || !token) {
-        return <Navigate to="/login" replace />;
+    if (!user || !accessToken) {
+        return <Navigate to="/login" />;
     }
 
     return children;
 }
-export default ProtectedRoute

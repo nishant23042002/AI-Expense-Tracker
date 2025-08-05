@@ -5,6 +5,9 @@ import { LuLayoutDashboard, LuHandCoins, LuWalletMinimal, LuLogOut } from "react
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuHistory } from "react-icons/lu";
+import axiosInstance from "../../utils/axiosInstance.js";
+import { API_PATHS } from "../../utils/apiPath.js";
+import { persistor } from "../../redux/store.js";
 
 function SideMenu({ activeMenu, user }) {
     const [message, setMessage] = useState("");
@@ -14,13 +17,18 @@ function SideMenu({ activeMenu, user }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogOut = () => {
-        setMessage("Logging Out...")
-        setTimeout(() => {
+    const handleLogout = async () => {
+        setMessage("Logging Out")
+        try {
+            await axiosInstance.get(`${API_PATHS.AUTH.LOGOUT}`)
             dispatch(logoutUser());
             navigate("/login");
-        }, 2000)
-    }
+            persistor.purge(); 
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     const MotionDiv = motion.div;
     return (
         <div className="w-64 h-[calc(100vh-77px)] p-5 bg-white dark:bg-slate-900 sticky top-[77px] z-20 border-r border-b border-slate-200 dark:border-slate-700">
@@ -88,7 +96,7 @@ function SideMenu({ activeMenu, user }) {
 
                 <button
                     className="w-full flex gap-4 items-center px-6 py-3 mb-3 rounded-lg font-medium hover:bg-slate-700 hover:text-white transition"
-                    onClick={handleLogOut}
+                    onClick={handleLogout}
                 >
                     <LuLogOut /> Logout
                     <span className="text-sm font-medium text-rose-400">{message}</span>

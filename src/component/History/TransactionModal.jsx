@@ -64,13 +64,27 @@ function TransactionModal({ isOpen, onClose, transaction, onEdit, onDelete, fetc
 
     const handleSave = async () => {
         try {
+            // Check if any field was actually modified
+            const isModified =
+                transaction.type === "income"
+                    ? transaction.source !== formData.source ||
+                    Number(transaction.amount) !== Number(formData.amount)
+                    : transaction.title !== formData.title ||
+                    Number(transaction.amount) !== Number(formData.amount);
+
+            if (!isModified) {
+                toast.info("No changes detected.");
+                return; // Exit early, avoid unnecessary API call
+            }
+
             setLoading(true);
+
             const payload =
                 transaction.type === "income"
                     ? {
                         source: formData.source,
                         amount: Number(formData.amount),
-                        autoGenerate: true // backend will use AI to fill category/notes
+                        autoGenerate: true
                     }
                     : {
                         title: formData.title,
@@ -98,6 +112,7 @@ function TransactionModal({ isOpen, onClose, transaction, onEdit, onDelete, fetc
         }
     };
 
+
     if (!transaction) return null;
 
     return (
@@ -116,6 +131,13 @@ function TransactionModal({ isOpen, onClose, transaction, onEdit, onDelete, fetc
                         exit={{ scale: 0.95, opacity: 0 }}
                     >
                         {copied && <h1 className="text-center text-green-600 text-xs">Copied!</h1>}
+
+                        {editMode && (
+                            <div className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-50 border-l-4 border-yellow-500 text-yellow-900 p-3 rounded-lg mb-4 text-base font-semibold flex items-center gap-2 animate-pulse">
+                                <span className="text-2xl">💡</span>
+                                AI will automatically fill Category,Notes,Icons and Recommendations based on what you enter here.
+                            </div>
+                        )}
 
                         <button
                             onClick={onClose}
@@ -157,13 +179,6 @@ function TransactionModal({ isOpen, onClose, transaction, onEdit, onDelete, fetc
                                 </span>
                             )}
                         </div>
-
-                        {editMode && (
-                            <div className="bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-50 border-l-4 border-yellow-500 text-yellow-900 p-3 rounded-lg mb-4 text-base font-semibold flex items-center gap-2 animate-pulse">
-                                <span className="text-2xl">💡</span>
-                                AI will automatically fill <span className="underline">Category</span>, <span className="underline">Notes</span>, and <span className="underline">Recommendations</span> based on what you enter here.
-                            </div>
-                        )}
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 text-sm">
                             <div>

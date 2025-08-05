@@ -5,7 +5,9 @@ console.log(BASE_URL);
 export const API_PATHS = {
     AUTH: {
         SIGNUP: "/user/signup",
-        LOGIN: "/user/login"
+        LOGIN: "/user/login",
+        LOGOUT: "/user/logout",
+        REFRESHTOKEN: "/user/refresh-token"
     },
     DASHBOARD: {
         GET_DATA: "/dashboard/dashboardstats"

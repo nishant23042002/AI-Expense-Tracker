@@ -1,8 +1,32 @@
-import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userLogin.js"
+// store.js
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import userReducer from "./userLogin";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // uses localStorage for web
 
+// Combine all reducers
+const rootReducer = combineReducers({
+    loginState: userReducer,
+});
+
+// Configuration for redux-persist
+const persistConfig = {
+    key: "root",
+    storage,
+    whitelist: ["loginState"], // only persist loginState
+};
+
+// Create persisted reducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Create the Redux store
 export const store = configureStore({
-    reducer: {
-        loginState: userReducer
-    }
-})
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false, // required for redux-persist
+        }),
+});
+
+// Export persistor
+export const persistor = persistStore(store);

@@ -42,8 +42,7 @@ function Income() {
             setIncomeChartData(data);
             setIncomeTxnData(incomes);
         } catch (err) {
-            console.error("Failed to fetch income data:", err);
-            setError("Something went wrong. Please try again later.");
+            console.error("Failed to fetch income data:", err);           
         }
     }, []);
 

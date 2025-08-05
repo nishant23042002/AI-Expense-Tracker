@@ -252,7 +252,7 @@ export default function AllTransactions() {
                 onClose={handleCloseModal}
                 transaction={selectedTransaction}
                 onEdit={handleEdit}
-                onDelete={(id) => handleDelete(id, selectedTransaction.type)}
+                onDelete={(id) => handleDelete(id, selectedTransaction?.type)}
                 fetchTransactionsData={fetchTransactionsData}
             />
         </div>
