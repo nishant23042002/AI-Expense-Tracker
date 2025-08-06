@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ExpenseOverview from "../../component/ExpenseStats/ExpenseOverview"
-import AllExpenseTransactions from "../../component/ExpenseStats/AllExpenseTransactions";
+import ExpenseOverview from "../../components/ExpenseStats/ExpenseOverview"
+import AllExpenseTransactions from "../../components/ExpenseStats/AllExpenseTransactions";
 import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPath.js";
 import { useModal } from "../../hooks/useModal.js";

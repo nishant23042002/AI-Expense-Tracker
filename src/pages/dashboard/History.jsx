@@ -1,5 +1,5 @@
 import { ToastContainer } from "react-toastify"
-import AllTransactions from "../../component/History/AllTransactions"
+import AllTransactions from "../../components/History/AllTransactions"
 
 export default function History(){
     return (

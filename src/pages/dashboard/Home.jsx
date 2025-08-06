@@ -4,11 +4,11 @@ import { API_PATHS } from "../../utils/apiPath.js";
 import { IoMdCard } from "react-icons/io";
 import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
-import { HomeInfoCard } from "../../component/Cards/HomeInfoCard.jsx";
-import FinancialOverview from "../../component/Cards/FinancialOverview.jsx";
-import Last30DaysExpenses from "../../component/Cards/Last30DaysExpenses.jsx";
-import Last60DaysIncome from "../../component/Cards/Last60DaysIncome.jsx";
-import TransactionContainer from "../../component/Cards/TransactionContainer.jsx";
+import { HomeInfoCard } from "../../components/Cards/HomeInfoCard.jsx";
+import FinancialOverview from "../../components/Cards/FinancialOverview.jsx";
+import Last30DaysExpenses from "../../components/Cards/Last30DaysExpenses.jsx";
+import Last60DaysIncome from "../../components/Cards/Last60DaysIncome.jsx";
+import TransactionContainer from "../../components/Cards/TransactionContainer.jsx";
 
 
 function Home() {

@@ -1,4 +1,4 @@
-import { LuArrowRight, LuUtensils } from "react-icons/lu";
+import { LuArrowRight } from "react-icons/lu";
 import TransactionCard from "./TransactionCard";
 import moment from "moment"
 import { useCountAnimation } from "../../hooks/useCountAnimation";

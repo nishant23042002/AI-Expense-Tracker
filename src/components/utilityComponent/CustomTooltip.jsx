@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const CustomTooltip = ({ active, payload, label }) => {
+export const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
         const data = payload[0].payload;
 
