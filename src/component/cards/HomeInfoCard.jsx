@@ -3,7 +3,7 @@ import { useCountAnimation } from "../../hooks/useCountAnimation.js"
 
 
 
-function HomeInfoCard({ icon, label, value = 0, iconColor, bgColor, navigate }) {
+export function HomeInfoCard({ icon, label, value = 0, iconColor, bgColor, navigate }) {
     const { counts, animateCount } = useCountAnimation();
 
     useEffect(() => {
@@ -32,4 +32,3 @@ function HomeInfoCard({ icon, label, value = 0, iconColor, bgColor, navigate }) 
     );
 }
 
-export default HomeInfoCard;
