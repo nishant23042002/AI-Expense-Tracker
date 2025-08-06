@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
-import axiosInstance from "../../utils/axiosInstance.js"
+import { useEffect, useState } from "react";
+import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPath.js";
+import { IoMdCard } from "react-icons/io";
+import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import HomeInfoCard from "../../component/Cards/HomeInfoCard.jsx";
-import { IoMdCard } from "react-icons/io"
-import { LuHandCoins, LuWalletMinimal } from "react-icons/lu"
-import { useNavigate } from "react-router-dom"
 import FinancialOverview from "../../component/Cards/FinancialOverview.jsx";
 import Last30DaysExpenses from "../../component/Cards/Last30DaysExpenses.jsx";
 import Last60DaysIncome from "../../component/Cards/Last60DaysIncome.jsx";
