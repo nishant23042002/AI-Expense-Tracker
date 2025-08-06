@@ -46,9 +46,9 @@ export default function Login() {
             const data = res.data;
 
             // Save in localStorage first
-            localStorage.setItem("accessToken", data.accessToken);
-            localStorage.setItem("refreshToken", data.refreshToken);
-            localStorage.setItem("user", JSON.stringify(data.user));
+            // localStorage.setItem("accessToken", data.accessToken);
+            // localStorage.setItem("refreshToken", data.refreshToken);
+            // localStorage.setItem("user", JSON.stringify(data.user));
 
             // Then dispatch to Redux
             await dispatch(loginUser({

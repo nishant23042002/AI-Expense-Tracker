@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["loginState"], // only persist loginState
+    whitelist: ["loginState"],
 };
 
 // Create persisted reducer
@@ -24,7 +24,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: false, // required for redux-persist
+            serializableCheck: false,
         }),
 });
 

@@ -16,7 +16,6 @@ export const API_PATHS = {
         ADD_INCOME: "/income/addIncome",
         DEL_INCOME: "/income",
         EDIT_INCOME: "/income/editincome",
-        Dwnld_INCOME: "/income/downloadIncome",
         GET_ALL_INCOME: "/income/getAllIncome"
     },
     EXPENSE: {

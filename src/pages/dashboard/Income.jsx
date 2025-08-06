@@ -13,7 +13,7 @@ function Income() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
     const { closeModal } = useModal()
-    
+
     const months = [
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -42,7 +42,7 @@ function Income() {
             setIncomeChartData(data);
             setIncomeTxnData(incomes);
         } catch (err) {
-            console.error("Failed to fetch income data:", err);           
+            console.error("Failed to fetch income data:", err);
         }
     }, []);
 
@@ -91,9 +91,6 @@ function Income() {
         }
     }
 
-    // const handleDwnldIncome = async () => {
-    //     const res = await axiosInstance.get(`${API_PATHS.INCOME.Dwnld_INCOME}`)
-    // }
 
     useEffect(() => {
         fetchIncomeData();
