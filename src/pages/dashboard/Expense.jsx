@@ -13,20 +13,21 @@ import { useModal } from "../../hooks/useModal.js";
 function Expense() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [expenseTxnData, setExpenseTxnData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const { closeModal } = useModal()
 
     const fetchExpenseData = useCallback(async () => {
+        setLoading(true)
         setIsSubmitting(true)
         try {
-            // const res = await axiosInstance.get(`${API_PATHS.DASHBOARD.GET_DATA}`)
             const res = await axiosInstance.get(`${API_PATHS.EXPENSE.GET_MY_EXPENSE}`)
             setExpenseTxnData(res.data.Expenses || []);
-            console.log(res.data);
         } catch (error) {
             console.log(error)
             toast.error(error.message || "Something went wrong!!!")
         } finally {
             setIsSubmitting(false);
+            setLoading(false)
         }
     }, []);
 
@@ -98,6 +99,7 @@ function Expense() {
                     isSubmitting={isSubmitting}
                 />
                 <AllExpenseTransactions
+                    loading={loading}
                     expenseTxnData={expenseTxnData}
                     handleDeleteExpense={handleDeleteExpense}
                 />

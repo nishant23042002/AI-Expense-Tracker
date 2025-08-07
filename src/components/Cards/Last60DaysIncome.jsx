@@ -36,7 +36,6 @@ export default function Last60DaysIncome({ simpleAreaChartData }) {
 
     const income = totalIncome.reduce((acc, curr) => acc + curr.value, 0);
 
-    console.log(simpleAreaChartData);
 
     return (
         <div className="relative z-30 p-4 rounded-md shadow-md w-full h-[500px] overflow-hidden border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">

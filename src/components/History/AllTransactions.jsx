@@ -25,6 +25,7 @@ function useDebounce(value, delay = 300) {
 
 export default function AllTransactions() {
     const [txnData, setTxnData] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [filterType, setFilterType] = useState("all");
@@ -46,11 +47,14 @@ export default function AllTransactions() {
     }, []);
 
     const fetchTransactionsData = async () => {
+        setLoading(true);
         try {
             const res = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
             setTxnData(res?.data?.data?.recentTransaction || []);
         } catch (error) {
             toast.error(error.message || "Something went wrong");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -100,7 +104,7 @@ export default function AllTransactions() {
 
     useEffect(() => {
         fetchTransactionsData();
-    }, [txnData]);
+    }, []);
 
     const filteredTransactions = useMemo(() => {
         const lowerCaseValue = debouncedSearch.trim().toLowerCase();
@@ -205,45 +209,42 @@ export default function AllTransactions() {
 
                 {/* Transaction List */}
                 <div className="flex flex-col gap-4 mt-2">
-                    {filteredTransactions.length > 0 ? (
+                    {loading ? (
+                        <div className="flex items-center justify-center min-h-[300px]">
+                            <div className="flex flex-col items-center gap-2">
+                                <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-indigo-500"></div>
+                                <p className="text-slate-600 dark:text-slate-300">Loading transactions...</p>
+                            </div>
+                        </div>
+                    ) : filteredTransactions.length > 0 ? (
                         filteredTransactions.map((txn) => (
                             <div
                                 key={txn._id}
                                 onClick={() => handleOpenModal(txn)}
                                 className="rounded-md dark:hover:bg-slate-900 border dark:bg-slate-700 border-slate-200 dark:border-slate-700 hover:border-slate-500 shadow hover:shadow-md transition cursor-pointer p-4 flex flex-col sm:grid sm:grid-cols-5 sm:items-center gap-y-2 gap-x-4"
                             >
-                                {/* Icon */}
                                 <div className="max-lg:text-[10px] text-xl text-center sm:text-left">{txn?.icon || "📝"}</div>
-
-                                {/* Date */}
                                 <div className="max-lg:text-[10px] text-sm text-center sm:text-left">
                                     {moment(txn?.date).format("DD MMM YYYY")}
                                 </div>
-
-                                {/* Amount */}
-                                <div
-                                    className={`max-lg:text-[10px] text-sm font-semibold text-center sm:text-left ${txn.type === "income" ? "text-green-600" : "text-red-500"
-                                        }`}
-                                >
-                                    {txn.type === "income" ? "+ ₹" : "- ₹"}
-                                    {txn.amount}
+                                <div className={`max-lg:text-[10px] text-sm font-semibold text-center sm:text-left ${txn.type === "income" ? "text-green-600" : "text-red-500"}`}>
+                                    {txn.type === "income" ? "+ ₹" : "- ₹"}{txn.amount}
                                 </div>
-
-                                {/* Category */}
                                 <div className="max-lg:text-[10px] text-sm font-medium text-center sm:text-left truncate">
                                     {txn.category}
                                 </div>
-
-                                {/* Time */}
                                 <div className="max-lg:text-[10px] text-sm text-blue-600 text-center sm:text-left">
                                     {moment(txn?.createdAt).format("hh:mm A")}
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <div className="text-centerpy-10 text-sm">No transactions found.</div>
+                        <div className="flex items-center justify-center min-h-[300px]">
+                            <p className="text-slate-600 dark:text-slate-300">No transactions found.</p>
+                        </div>
                     )}
                 </div>
+
             </div>
 
             {/* Transaction Modal */}

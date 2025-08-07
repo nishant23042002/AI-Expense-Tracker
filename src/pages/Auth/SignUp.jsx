@@ -9,6 +9,7 @@ import { API_PATHS } from "../../utils/apiPath.js";
 export default function SignUp() {
     const [isDark, setIsDark] = useState(false);
     const [userName, setUserName] = useState("")
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isAgree, setAgree] = useState(false)
@@ -47,7 +48,7 @@ export default function SignUp() {
         formData.append("email", email);
         formData.append("password", password);
         formData.append("isAgree", isAgree);
-
+        setIsSubmitting(true)
         try {
             const response = await axiosInstance.post(API_PATHS.AUTH.SIGNUP, formData, {
                 headers: {
@@ -56,7 +57,6 @@ export default function SignUp() {
             });
 
             const data = response.data;
-            console.log(data);
 
             setIsSuccess(true);
             setMessage(data.message || "Account created successfully!");
@@ -68,6 +68,8 @@ export default function SignUp() {
             console.error("Sign Up error:", err);
             const errorMsg = err.response?.data?.message || "Something went wrong. Please try again.";
             setMessage(errorMsg);
+        } finally {
+            setIsSubmitting(false)
         }
     };
 
@@ -164,9 +166,13 @@ export default function SignUp() {
 
                     <button
                         type="submit"
-                        className="w-full cursor-pointer bg-[#7D5FFF] hover:bg-[#6C4DFF] transition text-white py-2 rounded font-medium mb-4"
+                        className="w-full cursor-pointer bg-[#7D5FFF] hover:bg-[#6C4DFF] transition text-white py-2 rounded font-medium mb-4 flex justify-center items-center gap-2"
+                        disabled={isSubmitting}
                     >
-                        Create account
+                        {isSubmitting && (
+                            <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        )}
+                        {isSubmitting ? "Creating account..." : "Sign Up"}
                     </button>
                     <h1 className={`font-semibold text-center ${isSuccess ? "text-green-600" : "text-red-600"}`}>{message}</h1>
                     <p className="text-center text-sm text-gray-400 mb-2">Or register with</p>

@@ -25,7 +25,6 @@ function Home() {
 
         try {
             const res = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
-            console.log("API response:", res.data); // 👈 check this
             setDashboardStats(res.data.data); // no .data if it's already flat
         } catch (error) {
             console.log("Dashboard fetch error:", error?.response?.data || error.message);
@@ -128,8 +127,11 @@ function Home() {
                         />
                     </div>
                 ) : (
-                    <div className="flex items-center justify-center p-8">
-                        <h1 className="font-bold text-2xl text-slate-600">No data for STATS.</h1>
+                    <div className="flex items-center justify-center min-h-[300px]">
+                        <div className="flex flex-col items-center gap-2">
+                            <div className="w-10 h-10 border-4 border-dashed rounded-full animate-spin border-indigo-500"></div>
+                            <p className="text-slate-600 dark:text-slate-300">Loading dashboard data...</p>
+                        </div>
                     </div>
                 )
             }

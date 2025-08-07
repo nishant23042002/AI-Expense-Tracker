@@ -9,6 +9,7 @@ import { API_PATHS } from "../../utils/apiPath.js";
 
 export default function Login() {
     const [isDark, setIsDark] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -37,7 +38,7 @@ export default function Login() {
             setMessage("You must agree to the Terms & Conditions.");
             return;
         }
-
+        setIsSubmitting(true);
         try {
             const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, payload, {
                 withCredentials: true,
@@ -45,12 +46,6 @@ export default function Login() {
 
             const data = res.data;
 
-            // Save in localStorage first
-            // localStorage.setItem("accessToken", data.accessToken);
-            // localStorage.setItem("refreshToken", data.refreshToken);
-            // localStorage.setItem("user", JSON.stringify(data.user));
-
-            // Then dispatch to Redux
             await dispatch(loginUser({
                 user: data.user,
                 accessToken: data.accessToken,
@@ -63,6 +58,8 @@ export default function Login() {
             console.error("Login error: ", err);
             const errMsg = err.response?.data?.error || "Something went wrong. Try again.";
             setMessage(errMsg);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -136,10 +133,15 @@ export default function Login() {
 
                     <button
                         type="submit"
-                        className="w-full cursor-pointer bg-[#7D5FFF] hover:bg-[#6C4DFF] transition text-white py-2 rounded font-medium mb-4"
+                        className="w-full cursor-pointer bg-[#7D5FFF] hover:bg-[#6C4DFF] transition text-white py-2 rounded font-medium mb-4 flex justify-center items-center gap-2"
+                        disabled={isSubmitting}
                     >
-                        Login
+                        {isSubmitting && (
+                            <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        )}
+                        {isSubmitting ? "Logging in..." : "Login"}
                     </button>
+
 
                     <p className="text-center text-sm text-gray-400 mb-2">Or register with</p>
 

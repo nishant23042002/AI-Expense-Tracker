@@ -11,6 +11,7 @@ function Income() {
     const [incomeChartData, setIncomeChartData] = useState([]);
     const [incomeTxnData, setIncomeTxnData] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const { closeModal } = useModal()
 
@@ -20,6 +21,7 @@ function Income() {
     ];
 
     const fetchIncomeData = useCallback(async () => {
+        setLoading(true)
         setError("");
         try {
             const res = await axiosInstance.get(API_PATHS.INCOME.GET_ALL_INCOME);
@@ -43,6 +45,8 @@ function Income() {
             setIncomeTxnData(incomes);
         } catch (err) {
             console.error("Failed to fetch income data:", err);
+        }finally{
+            setLoading(false)
         }
     }, []);
 
@@ -94,8 +98,6 @@ function Income() {
 
     useEffect(() => {
         fetchIncomeData();
-        // handleDeleteIncome();
-        // handleDwnldIncome();
     }, [])
     return (
         <div className="my-5 mx-6">
@@ -123,6 +125,7 @@ function Income() {
                 <div className="dark:text-slate-200 text-slate-700">
                     <IncomeOverview income={incomeChartData} handleSubmit={handleAddIncome} isSubmitting={isSubmitting} />
                     <AllIncomeTransactions
+                        loading={loading}
                         incomeTxnData={incomeTxnData}
                         handleDeleteIncome={handleDeleteIncome}
                     />
