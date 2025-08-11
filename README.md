@@ -1,26 +1,25 @@
-# 💰 MERN Expense Tracker App
+# 💰 MERN AI Expense Tracker
 
-A **full-stack personal finance management application** built using the **MERN stack** (MongoDB, Express.js, React, Node.js) to help you **track income, expenses, budgets, and savings goals** with AI-powered recommendations.
+A **full-stack personal finance management application** built using the **MERN stack** (MongoDB, Express.js, React, Node.js) with **AI-powered expense categorization and recommendations**.
 
-This app provides **interactive analytics, goal tracking, receipt scanning**, and **intelligent categorization** for a seamless money management experience.
+This app helps you **track income, expenses, budgets, and savings goals** while offering **interactive analytics, goal tracking, receipt scanning**, and **intelligent categorization** for a seamless money management experience.
 
 ---
 
 ## 🚀 Features
 
 ### **Core Functionality**
-- 🔐 **Secure Authentication** – Login & Signup with JWT-based Access + Refresh token system.
-- ➕ **Add, Edit, Delete Transactions** – Manage income & expenses easily.
+- 🔐 **Secure Authentication** – JWT-based Access & Refresh token system.
+- ➕ **Add, Edit, Delete Transactions** – Manage income & expenses with ease.
 - 🧠 **AI Auto Categorization** – NLP-based categorization of expenses using OpenAI.
 - 🎯 **Budget Goals** – Set saving targets & track progress visually.
-- 📊 **Charts & Analytics** – Interactive data visualization for better financial insights.
-- 🌗 **Dark/Light Mode** – Modern and user-friendly UI theme toggle.
+- 📊 **Charts & Analytics** – Interactive data visualization.
+- 🌗 **Dark/Light Mode** – User-friendly UI theme toggle.
 
 ### **AI & Forecasting**
 - 💡 **Smart Savings Tips** – AI-driven recommendations based on spending patterns.
-- 📈 **Income vs Expense Forecasting** – Predictive analytics to check if you’re on track.
+- 📈 **Income vs Expense Forecasting** – Predictive analytics to stay on track.
 
----
 
 ## 🛠 Tech Stack
 
@@ -47,41 +46,6 @@ This app provides **interactive analytics, goal tracking, receipt scanning**, an
 
 ---
 
-## 📂 Project Structure
-
-
-
-AI Expense-tracker/
-│
-├── server/ # Node.js + Express API
-│ ├── database/ # DB connection, env config
-│ ├── controllers/ # API route handlers
-│ ├── middleware/ # Auth, error handling
-│ ├── model/ # Mongoose models
-│ ├── routes/ # API routes
-│ ├── utils/ # Helper functions
-│ └── server.js # Entry point
-│
-├── client/ # React + Vite app
-│ ├── public/ # Static files
-│ ├── src/
-│ │ ├── components/ # Reusable UI components
-│ │ ├── pages/ # App pages
-│ │ ├── redux/ # Redux slices & store
-│ │ ├── context/ # Context
-│ │ ├── hooks/ # Custom hooks
-│ │ ├── utils/ # Axios instance, helpers
-│ │ └── App.jsx
-│ └── vite.config.js
-│
-└── README.md
-
-
-
----
-
----
-
 ## ⚙️ Installation & Setup
 
 ### **1️⃣ Clone Repositories**
@@ -94,6 +58,26 @@ git clone https://github.com/nishant23042002/AI-Expense-Tracker
 ### 1 Backend Setup
 cd AI-Expense-Tracker-Backend/server
 npm install
+
+
+
+---
+
+## 📁 Screenshots
+
+### 🏠 Homepage
+![Dashboard Screenshot](./screenshots/Screenshot%202025-08-07%20193759.png)
+
+### Add Income Transaction
+![Add Income Transaction Screenshot](./screenshots/Screenshot%202025-08-02%20181355.png)
+
+### Add Expense Transaction
+![Add Expense Transaction Screenshot](./screenshots/Screenshot%202025-08-02%20181426.png)
+
+### Transaction History
+![Transaction History Screenshot](./screenshots/Screenshot%202025-08-02%20181439.png)
+
+---
 
 
 **Create a .env file in backend/ and add:**
@@ -113,7 +97,6 @@ NODE_ENV=production
 npm start
 
 
-
 ### 2 Frontend Setup
 cd AI-Expense-Tracker/client
 npm install
@@ -125,30 +108,4 @@ VITE_BASE_URL=https://ai-expense-tracker-backend-4cy9.onrender.com/api/v1
 **Run frontend:**
 npm run dev
 
----
 
-
-## 📸 Screenshots
-
-### Dashboard
-![Dashboard Screenshot](./screenshots/Screenshot%202025-08-07%20193759.png)
-
-### Add Income Transaction
-![Add Income Transaction Screenshot](./screenshots/Screenshot%202025-08-02%20181355.png)
-
-### Add Expense Transaction
-![Add Expense Transaction Screenshot](./screenshots/Screenshot%202025-08-02%20181426.png)
-
-### Transaction History
-![Transaction History Screenshot](./screenshots/Screenshot%202025-08-02%20181439.png)
-
-
-
-
-
-👨‍💻 Author
-Nishant Sapkal
-Full Stack Developer | MERN | AI Integrations
-📧 Email: nishantsapkal2304@gmail.com
-🔗 GitHub: https://github.com/nishant23042002
-🔗 LinkedIn: www.linkedin.com/in/nishant-sapkal2304
