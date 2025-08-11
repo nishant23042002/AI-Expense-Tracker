@@ -66,16 +66,16 @@ npm install
 ## 📁 Screenshots
 
 ### 🏠 Homepage
-![Dashboard Screenshot](./screenshots/Screenshot%202025-08-07%20193759.png)
+![Dashboard Screenshot](/client/screenshots/Screenshot%202025-08-07%20193759.png)
 
 ### Add Income Transaction
-![Add Income Transaction Screenshot](./screenshots/Screenshot%202025-08-02%20181355.png)
+![Add Income Transaction Screenshot](/client/screenshots/Screenshot%202025-08-02%20181355.png)
 
 ### Add Expense Transaction
-![Add Expense Transaction Screenshot](./screenshots/Screenshot%202025-08-02%20181426.png)
+![Add Expense Transaction Screenshot](/client/screenshots/Screenshot%202025-08-02%20181426.png)
 
 ### Transaction History
-![Transaction History Screenshot](./screenshots/Screenshot%202025-08-02%20181439.png)
+![Transaction History Screenshot](/client/screenshots/Screenshot%202025-08-02%20181439.png)
 
 ---
 
