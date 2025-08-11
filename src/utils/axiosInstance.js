@@ -12,6 +12,12 @@ const axiosInstance = axios.create({
     withCredentials: true,
 });
 
+
+const refreshAxios = axios.create({
+    baseURL: BASE_URL,
+    withCredentials: true,
+});
+
 // ✅ Request Interceptor
 axiosInstance.interceptors.request.use((config) => {
     const token = store.getState().loginState?.accessToken;
@@ -31,7 +37,7 @@ axiosInstance.interceptors.response.use(
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
-                const res = await axiosInstance.get(`${API_PATHS.AUTH.REFRESHTOKEN}`, {
+                const res = await refreshAxios.get(`${API_PATHS.AUTH.REFRESHTOKEN}`, {
                     withCredentials: true,
                 });
                 const newAccessToken = res.data.accessToken;
@@ -39,7 +45,8 @@ axiosInstance.interceptors.response.use(
                 store.dispatch(loginUser({
                     user: store.getState().loginState?.user,
                     accessToken: newAccessToken,
-                }));
+                }));             
+
                 // Save and retry
                 localStorage.setItem("accessToken", newAccessToken);
                 axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
@@ -51,7 +58,6 @@ axiosInstance.interceptors.response.use(
                 return Promise.reject(refreshError);
             }
         }
-
         return Promise.reject(error);
     }
 );
