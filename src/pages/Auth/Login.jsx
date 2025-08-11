@@ -74,10 +74,6 @@ export default function Login() {
                         alt="Desert"
                         className="w-full h-full object-cover opacity-90 hover:opacity-100 duration-100"
                     />
-                    <div className="absolute bottom-6 left-6 text-white">
-                        <h3 className="text-lg font-semibold">Capturing Moments,</h3>
-                        <p className="text-sm">Creating Memories</p>
-                    </div>
                 </div>
 
                 {/* Right Panel */}
