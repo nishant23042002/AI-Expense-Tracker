@@ -51,8 +51,11 @@ export default function Login() {
                 accessToken: data.accessToken,
                 refreshToken: data.refreshToken
             }));
-
-            navigate("/dashboard");
+            if (res.ok) {
+                navigate("/dashboard");
+            } else {
+                navigate("/login")
+            }
             setMessage(data.message || "Login successful.");
         } catch (err) {
             console.error("Login error: ", err);
