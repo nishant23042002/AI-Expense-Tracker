@@ -5,8 +5,7 @@ export const API_PATHS = {
     AUTH: {
         SIGNUP: "/user/signup",
         LOGIN: "/user/login",
-        LOGOUT: "/user/logout",
-        REFRESHTOKEN: "/user/refresh-token"
+        LOGOUT: "/user/logout"
     },
     DASHBOARD: {
         GET_DATA: "/dashboard/dashboardstats"

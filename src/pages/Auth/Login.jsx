@@ -48,8 +48,7 @@ export default function Login() {
 
             await dispatch(loginUser({
                 user: data.user,
-                accessToken: data.accessToken,
-                refreshToken: data.refreshToken
+                accessToken: data.accessToken
             }));
 
             navigate("/dashboard");
