@@ -5,8 +5,6 @@ import { LuLayoutDashboard, LuHandCoins, LuWalletMinimal, LuLogOut } from "react
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuHistory } from "react-icons/lu";
-import axiosInstance from "../../utils/axiosInstance.js";
-import { API_PATHS } from "../../utils/apiPath.js";
 import { persistor } from "../../redux/store.js";
 
 function SideMenu({ activeMenu, user }) {
@@ -20,7 +18,6 @@ function SideMenu({ activeMenu, user }) {
     const handleLogout = async () => {
         setMessage("Logging Out")
         try {
-            await axiosInstance.get(`${API_PATHS.AUTH.LOGOUT}`)
             dispatch(logoutUser());
             navigate("/login");
             persistor.purge(); 
